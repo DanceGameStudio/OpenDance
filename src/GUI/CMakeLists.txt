@@ -17,6 +17,7 @@ set(PROJECT_SOURCES
         #MainWindow.hpp
         MainWindow.cpp
         qml.qrc
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
