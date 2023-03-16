@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(Template VERSION 0.1 LANGUAGES CXX)
+project(GUI VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
@@ -21,28 +21,28 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(Template
+    qt_add_executable(GUI
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
 else()
-    add_executable(Template
+    add_executable(GUI
     ${PROJECT_SOURCES}
         )
 endif()
 
-target_compile_definitions(Template
+target_compile_definitions(GUI
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(Template
+target_link_libraries(GUI
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
 
-set_target_properties(Template PROPERTIES
+set_target_properties(GUI PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(Template)
-    qt_finalize_executable(Template)
+    qt_import_qml_plugins(GUI)
+    qt_finalize_executable(GUI)
 endif()
