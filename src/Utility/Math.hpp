@@ -19,4 +19,3 @@ double calc_cosine_similarity(Vector first_vector, Vector second_vector)
     return result;
 }
 }
-}

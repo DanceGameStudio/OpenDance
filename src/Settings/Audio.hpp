@@ -6,7 +6,7 @@ class Audio {
     Audio();
 
     void set_gain();
-    void get_gain();
+    double get_gain();
 
 private:
     double gain_;
