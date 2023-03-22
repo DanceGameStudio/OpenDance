@@ -1,0 +1,8 @@
+namespace Input {
+
+class Input 
+{
+	
+}
+
+}

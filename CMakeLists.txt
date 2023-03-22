@@ -9,4 +9,4 @@ project (${PROJECT_NAME}
 	LANGUAGES CXX
 )
 
-add_subdirectory (src)
+add_subdirectory(src)
