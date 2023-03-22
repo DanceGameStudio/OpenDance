@@ -2,6 +2,7 @@ add_subdirectory(Utility)
 
 add_subdirectory(GameLogic)
 add_subdirectory(Graphics)
+add_subdirectory(GUI)
 add_subdirectory(Input)
 add_subdirectory(MessageBus)
 add_subdirectory(PoseEstimation)
