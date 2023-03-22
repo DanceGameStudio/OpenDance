@@ -1,6 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <QPixmap>
+#include <QQmlContext>
+#include "GameScreen/VideoStreamContent.h"
+#include "PlayMenu/DancesModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,8 +12,20 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
+
+    // Register Types
+    qmlRegisterType<VideoStreamContent>("Game", 1, 0, "VideoStreamContent");
+
+    // Dances Model into Qml Context
+    //DancesModel dancesModel();
+    /*
+    DancesModel dancesModel = new DancesModel();
+    QQmlContext* context = engine.rootContext(); // view is the QDeclarativeView
+    context->setContextProperty("_rosterItemModel", dancesModel);
+    */
+
+    // Build UI
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -18,6 +33,6 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
+    
     return app.exec();
 }

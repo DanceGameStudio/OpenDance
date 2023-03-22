@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>img/logo.png</file>
-        <file>img/logo_no_bg.png</file>
         <file alias="StyledButton.qml">Components/StyledButton.qml</file>
         <file alias="MainMenuButton.qml">MainMenu/MainMenuButton.qml</file>
         <file alias="CreditsMenu.qml">CreditsMenu/CreditsMenu.qml</file>
@@ -11,7 +9,11 @@
         <file alias="PlayMenu.qml">PlayMenu/PlayMenu.qml</file>
         <file alias="SettingsMenu.qml">SettingsMenu/SettingsMenu.qml</file>
         <file alias="MenuBackground.qml">MenuBackground/MenuBackground.qml</file>
-        <file alias="dancing-robo.gif">img/dancing-robo.gif</file>
         <file alias="MenuBackgroundParticle.qml">MenuBackground/MenuBackgroundParticle.qml</file>
+        <file alias="GameScreen.qml">GameScreen/GameScreen.qml</file>
+        <file alias="VideoStream.qml">GameScreen/VideoStream.qml</file>
+        <file alias="ui-click.mp3">assets/ui-click.mp3</file>
+        <file alias="ui-hover.mp3">assets/ui-hover.mp3</file>
+        <file alias="DancePreview.qml">PlayMenu/DancePreview.qml</file>
     </qresource>
 </RCC>
