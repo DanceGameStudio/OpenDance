@@ -1,6 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>TestComponent.qml</file>
+        <file>img/logo.png</file>
+        <file>img/logo_no_bg.png</file>
+        <file alias="StyledButton.qml">Components/StyledButton.qml</file>
+        <file alias="MainMenuButton.qml">MainMenu/MainMenuButton.qml</file>
+        <file alias="CreditsMenu.qml">CreditsMenu/CreditsMenu.qml</file>
+        <file alias="LandingScreen.qml">LandingScreen/LandingScreen.qml</file>
+        <file alias="MainMenu.qml">MainMenu/MainMenu.qml</file>
+        <file alias="PlayMenu.qml">PlayMenu/PlayMenu.qml</file>
+        <file alias="SettingsMenu.qml">SettingsMenu/SettingsMenu.qml</file>
+        <file alias="MenuBackground.qml">MenuBackground/MenuBackground.qml</file>
+        <file alias="dancing-robo.gif">img/dancing-robo.gif</file>
+        <file alias="MenuBackgroundParticle.qml">MenuBackground/MenuBackgroundParticle.qml</file>
     </qresource>
 </RCC>

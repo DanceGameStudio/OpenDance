@@ -3,18 +3,67 @@ import QtQuick.Window 2.15
 
 Window {
     id: root
-    width: 640
-    height: 480
+
     visible: true
-    title: qsTr("Hello World")
-    
-    TestComponent {
-        x: 0
-        y: 0
+    title: qsTr("OpenDance")
+    visibility: Qt.WindowFullScreen
+    flags: Qt.FramelessWindowHint | Qt.Window
+    color: "black"
+
+    MenuBackground {
+        id: menuBackground
+
+        anchors.fill: parent
+
+        //visible: !gameStream.visible
     }
 
-    TestComponent {
-        x: 300
+    Item {
+        id: gameStream
+        visible: true
+    }
+
+    MainMenu {
+        id: mainMenu
+
+        x: 0
         y: 0
+        width: root.width
+        height: root.height
+
+        visible: !landingScreen.visible && !playMenu.visible && !settingsMenu.visible && !creditsMenu.visible
+
+        onOpenPlayMenu: playMenu.visible = true
+        onOpenSettingsMenu: settingsMenu.visible = true
+        onOpenCreditsMenu: creditsMenu.visible = true
+    }
+    
+    PlayMenu {
+        id: playMenu
+        anchors.fill: parent
+        visible: false
+    }
+    
+    SettingsMenu {
+        id: settingsMenu
+        anchors.fill: parent
+        visible: false
+    }
+
+    CreditsMenu {
+        id: creditsMenu
+        anchors.fill: parent
+        visible: false
+    }
+
+    LandingScreen {
+        visible: true
+
+        id: landingScreen
+        
+        x: 0
+        y: 0
+        width: root.width
+        height: root.height
     }
 }
