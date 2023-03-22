@@ -2,7 +2,7 @@
 
 namespace Utility::Math {
 
-// Vector3 Standard Math operators
+// Vector3 Standard Math Operators
 Vector3& Vector3::operator=(const Vector3& rhs)
 {
     if (this == &rhs)
@@ -54,7 +54,7 @@ Vector3 Vector3::operator/(float f) const
     return (*this) * (1.f / f);
 }
 
-// Vector3 Combined Math operators
+// Vector3 Combined Math Operators
 void Vector3::operator+=(const Vector3& v)
 {
     x += v.x;
@@ -88,7 +88,7 @@ void Vector3::operator/=(float f)
     (operator*=)(1.f / f);
 }
 
-// Vector3 Logic operators
+// Vector3 Logic Operators
 bool Vector3::operator==(const Vector3& v) const
 {
     return x == v.x && y == v.y && z == v.z;
@@ -122,7 +122,7 @@ bool Vector3::operator!=(const Vector3& v) const
     return !(*this == v);
 }
 
-// Vector3 Array Style access
+// Vector3 Array Style Access
 float& Vector3::operator[](int i)
 {
     return (&x)[i];
@@ -133,7 +133,7 @@ const float& Vector3::operator[](int i) const
     return (&x)[i];
 }
 
-// Vector3 Math utilities
+// Vector3 Math Utilities
 float Vector3::len() const
 {
     return static_cast<float>(sqrtf(lensqr()));
@@ -181,17 +181,16 @@ bool Vector3::is_zero() const
     return x == 0.0f && y == 0.0f && z == 0.0f;
 }
 
-double cosine_similarity(const std::vector<double>& first_vector, const std::vector<double>& second_vector)
+float Vector3::dot(const Vector3& v) const
 {
-    if (first_vector.size() != second_vector.size() || first_vector.empty() || second_vector.empty()) {
-        throw std::invalid_argument("Vectors must have the same length. And must be more than zero");
-    }
+    return x * v.x + y * v.y + z * v.z;
+}
 
-    const double dot_product = std::inner_product(first_vector.begin(), first_vector.end(), second_vector.begin(), 0.0);
-    const double first_vector_lengh = std::sqrt(std::inner_product(first_vector.begin(), first_vector.end(), first_vector.begin(), 0.0));
-    const double second_vector_lengh = std::sqrt(std::inner_product(second_vector.begin(), second_vector.end(), second_vector.begin(), 0.0));
-
-    return dot_product / (first_vector_lengh * second_vector_lengh);
+// Generic Math Utilities
+float cosine_similarity(const Vector3& v1, const Vector3& v2)
+{
+    float dot_product = v1.dot(v2);
+    return dot_product / (v1.len() * v2.len());
 }
 
 }

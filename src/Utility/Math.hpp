@@ -79,8 +79,10 @@ public:
 
     void zero();
     bool is_zero() const;
+
+    float dot(const Vector3& v) const;
 };
 
-double cosine_similarity(const std::vector<double>& first_vector, const std::vector<double>& second_vector);
-
+// Generic Math Utilities
+float cosine_similarity(const Vector3& v1, const Vector3& v2);
 }
