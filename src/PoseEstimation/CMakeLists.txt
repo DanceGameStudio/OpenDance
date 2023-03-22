@@ -1,10 +1,15 @@
-cmake_minimum_required(VERSION 3.14)
-#project(PoseEstimation)
+add_library(PoseEstimation-lib STATIC
+	PoseAnalyser.hpp
+	PoseAnalyser.cpp
+	PoseDetector.hpp
+	PoseDetector.cpp
+	PoseEstimationStructs.hpp
+)
 
-#find_package(OpenCV 4.7 REQUIRED)
+target_link_libraries(PoseEstimation-lib
+	PRIVATE Utility-lib
+)
 
-#add_executable(PoseEstimation src/main.cpp)
-
-#target_link_libraries(PoseEstimation PRIVATE
-#    ${OpenCV_LIBS}
-#)
+target_include_directories(PoseEstimation-lib PUBLIC 
+	${CMAKE_CURRENT_LIST_DIR}
+)

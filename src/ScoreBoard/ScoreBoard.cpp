@@ -1,4 +1,4 @@
-#include "ScoreBoard"
+#include "ScoreBoard.hpp"
 
 namespace ScoreBoard {
 

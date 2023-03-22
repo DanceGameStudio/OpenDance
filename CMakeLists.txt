@@ -1,13 +1,12 @@
 cmake_minimum_required (VERSION 3.8)
 
-project ("OpenDance")
+set(PROJECT_NAME "OpenDance")
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_subdirectory ("src/GUI")
-add_subdirectory ("src/GameLogic")
-add_subdirectory ("src/Graphics")
-add_subdirectory ("src/MessageBus")
-add_subdirectory ("src/PoseEstimation")
-add_subdirectory ("src/ScoreBoard")
-add_subdirectory ("src/Settings")
+project (${PROJECT_NAME}
+	VERSION 0.0.1
+	LANGUAGES CXX
+)
 
-
+add_subdirectory (src)
