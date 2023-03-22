@@ -15,12 +15,15 @@ Window {
 
         anchors.fill: parent
 
-        //visible: !gameStream.visible
+        visible: !gameScreen.visible
     }
 
-    Item {
-        id: gameStream
-        visible: true
+    GameScreen {
+        id: gameScreen
+
+        anchors.fill: parent
+
+        visible: false
     }
 
     MainMenu {
@@ -31,8 +34,8 @@ Window {
         width: root.width
         height: root.height
 
-        visible: !landingScreen.visible && !playMenu.visible && !settingsMenu.visible && !creditsMenu.visible
-
+        visible: !landingScreen.visible && !playMenu.visible && !settingsMenu.visible && !creditsMenu.visible && !gameScreen.visible
+        
         onOpenPlayMenu: playMenu.visible = true
         onOpenSettingsMenu: settingsMenu.visible = true
         onOpenCreditsMenu: creditsMenu.visible = true
@@ -41,7 +44,9 @@ Window {
     PlayMenu {
         id: playMenu
         anchors.fill: parent
-        visible: false
+        visible: true
+
+        onGameSelected: { playMenu.visible = false; gameScreen.visible = true; }
     }
     
     SettingsMenu {
@@ -57,7 +62,7 @@ Window {
     }
 
     LandingScreen {
-        visible: true
+        visible: false
 
         id: landingScreen
         

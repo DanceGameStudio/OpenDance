@@ -1,5 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 1.4
+import QtMultimedia 5.15
+
 
 Rectangle {
 	id: root
@@ -16,6 +18,15 @@ Rectangle {
 		color: Qt.rgba(.8, .8, .8, 1)
 		width: 3
 	}
+	
+    SoundEffect {
+        id: soundClick
+        source: "ui-click.mp3"
+    }
+    SoundEffect {
+        id: soundHover
+        source: "ui-hover.mp3"
+    }
 
 	Text {
 		id: label
@@ -31,7 +42,7 @@ Rectangle {
 		id: mouse
 		hoverEnabled: true
 		anchors.fill: root
-		onClicked: root.clicked()
+		onClicked: { soundClick.play(); root.clicked() }
 		cursorShape: Qt.PointingHandCursor
 	}
 }
