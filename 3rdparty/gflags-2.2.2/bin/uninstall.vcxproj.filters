@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="F:\Mittelstufenprojekt\gflags-2.2.2\bin\CMakeFiles\6d7d66eb81ea13e40ac4b156188bfc1b\uninstall.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="F:\Mittelstufenprojekt\gflags-2.2.2\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="F:\Mittelstufenprojekt\gflags-2.2.2\bin\CMakeFiles\uninstall" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A0D6D19B-F1C4-3D64-BEEF-577F44A91C30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
