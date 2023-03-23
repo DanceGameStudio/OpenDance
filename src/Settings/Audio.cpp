@@ -2,10 +2,6 @@
 
 namespace Settings {
 
-Audio::Audio()
-{
-}
-
 void Audio::set_gain()
 {
 }

@@ -1,6 +1,7 @@
 #include "GameLogic.hpp"
 
-int main([[maybe_used]] int argc, [[maybe_used]] char **argv)
+int main([[maybe_used]] int argc, [[maybe_used]] char** argv)
 {
-    return 0;
+    std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>();
+    game->loop();
 }
