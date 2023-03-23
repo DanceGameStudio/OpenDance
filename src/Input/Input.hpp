@@ -4,6 +4,6 @@ namespace Input {
 
 class Input 
 {
-}
+};
 
 }
