@@ -1,5 +1,6 @@
 #include <QQuickPaintedItem>
 #include <QPixmap>
+#include <QImage>
 
 class VideoStreamContent : public QQuickPaintedItem {
     Q_OBJECT
@@ -10,6 +11,7 @@ public:
     void paint(QPainter* painter) override;
 
 private:
-    QPixmap m_pixmap;
+    //QPixmap m_pixmap;
+    QImage m_img;
 
 };
