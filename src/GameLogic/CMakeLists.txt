@@ -5,7 +5,11 @@ add_library(GameLogic-lib STATIC
 
 target_link_libraries(GameLogic-lib
 	PUBLIC Utility-lib
-	PRIVATE MessageBus-lib
+	PUBLIC Graphics-lib
+	PUBLIC Input-lib
+	PUBLIC PoseEstimation-lib
+	PUBLIC ScoreBoard-lib
+	PUBLIC Settings-lib
 )
 
 target_include_directories(GameLogic-lib PUBLIC 

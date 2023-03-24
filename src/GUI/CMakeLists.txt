@@ -14,10 +14,12 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 
 set(PROJECT_SOURCES
-        #MainWindow.hpp
         MainWindow.cpp
+        GameScreen/VideoStreamContent.cpp
+        GameScreen/VideoStreamContent.h
+        PlayMenu/DancesModel.cpp
+        PlayMenu/DancesModel.h
         qml.qrc
-
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
