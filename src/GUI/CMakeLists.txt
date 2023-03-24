@@ -15,6 +15,9 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 
 set(PROJECT_SOURCES
         MainWindow.cpp
+        Interface.hpp
+        Interface.cpp
+        InterfaceStructs.hpp
         GameScreen/VideoStreamContent.cpp
         GameScreen/VideoStreamContent.h
         PlayMenu/DancesModel.cpp
@@ -36,7 +39,10 @@ endif()
 target_compile_definitions(GUI
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(GUI
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core 
+  Qt${QT_VERSION_MAJOR}::Quick
+  ScoreBoard-lib
+)
 
 set_target_properties(GUI PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
