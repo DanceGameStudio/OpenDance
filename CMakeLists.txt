@@ -4,6 +4,10 @@ set(PROJECT_NAME "OpenDance")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(FIND_LIB_PREFIX ${CMAKE_SOURCE_DIR}/3rdparty/)
+set(OPENPOSE_INCLUDE_DIRS ${FIND_LIB_PREFIX}/openpose/include)
+set(OpenCV_INCLUDE_DIRS ${FIND_LIB_PREFIX}/openpose/3rdparty/windows/opencv/include)
+
 project (${PROJECT_NAME}
 	VERSION 0.0.1
 	LANGUAGES CXX
