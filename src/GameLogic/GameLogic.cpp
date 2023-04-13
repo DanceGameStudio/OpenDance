@@ -9,7 +9,7 @@ GameLogic::GameLogic()
 
 void GameLogic::loop()
 {
-	//TODO
+	graphics_->
 }
 
 void GameLogic::load_configuration()

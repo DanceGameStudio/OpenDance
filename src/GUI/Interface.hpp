@@ -8,7 +8,7 @@ class Interface {
 public:
     void set_settings(const Settings& settings);
 
-    const Settings& getSettings();
+    const Settings& get_settings();
 
     const Graphics& get_graphics();
 
