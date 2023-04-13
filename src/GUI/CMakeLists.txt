@@ -18,6 +18,9 @@ find_package(Qt5MultimediaWidgets REQUIRED)
 
 set(PROJECT_SOURCES
         MainWindow.cpp
+        Interface.hpp
+        Interface.cpp
+        InterfaceStructs.hpp
         GameScreen/VideoStreamContent.cpp
         GameScreen/VideoStreamContent.h
         PlayMenu/DancesModel.cpp
@@ -41,8 +44,9 @@ endif()
 target_compile_definitions(GUI
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(GUI
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets)
-
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets
+  ScoreBoard-lib
+)
 set_target_properties(GUI PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
