@@ -12,6 +12,14 @@ target_include_directories(Input-lib PUBLIC
 	${OpenCV_INCLUDE_DIRS}
 )
 
+find_package( OpenCV CONFIG REQUIRED PATHS ${OpenCV_BUILD_DIR})
+
+target_link_directories(Input-lib PUBLIC
+    ${OpenCV_LIB_DIRS}
+)
 target_link_libraries(Input-lib
-	${OpenCV_LIB_DIR}/opencv_world470.lib
+    ${OpenCV_LIBS}
+)
+target_include_directories(Input-lib PUBLIC
+    ${OpenCV_INCLUDE_DIRS}
 )
