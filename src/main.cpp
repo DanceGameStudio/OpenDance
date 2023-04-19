@@ -1,5 +1,5 @@
-#include "GameLogic.hpp"
 #include <opencv2/core.hpp>
+#include "GameLogic.hpp"
 
 int main([[maybe_used]] int argc, [[maybe_used]] char** argv)
 {
