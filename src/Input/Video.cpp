@@ -4,7 +4,7 @@
 
 namespace Input {
 
-cv::Mat& Video::read()
+cv::Mat Video::read()
 {
     cv::Mat image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
     return image;
