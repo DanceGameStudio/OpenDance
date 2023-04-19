@@ -10,7 +10,7 @@ namespace Graphics {
 class Graphics 
 {
 
-private:
+public:
     std::unique_ptr<VisualFX> visual_fx_   = std::make_unique<VisualFX>();
     std::unique_ptr<Input::Camera> camera_ = std::make_unique<Input::Camera>();
     std::unique_ptr<Input::Video> video_   = std::make_unique<Input::Video>();

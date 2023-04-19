@@ -7,7 +7,7 @@ namespace Input {
 class Video : public Input 
 {
 public:
-    cv::Mat& read() override;
+    cv::Mat read() override;
    
     void resize(const int width, const int height) override;
 
