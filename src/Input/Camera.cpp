@@ -26,4 +26,9 @@ void Camera::resize(const int width, const int height)
     height_ = height;
 }
 
+void Camera::change_color_space(const ColorSpace colorSpace) 
+{
+
+}
+
 }

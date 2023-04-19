@@ -16,6 +16,8 @@ public:
 private:
     std::string filename_;
     cv::Mat image_;
+    int width_;
+    int height_;
 };
 
 }
