@@ -9,5 +9,4 @@ add_library(Input-lib STATIC
 
 target_include_directories(Input-lib PUBLIC 
 	${CMAKE_CURRENT_LIST_DIR}
-	${OpenCV_INCLUDE_DIRS}
 )

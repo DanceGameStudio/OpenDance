@@ -1,6 +1,7 @@
 #pragma once 
 
-#include "ScoreBoard.hpp"
+#include <string>
+#include <vector>
 
 namespace Interface {
 

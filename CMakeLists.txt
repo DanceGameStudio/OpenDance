@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(FIND_LIB_PREFIX ${CMAKE_SOURCE_DIR}/3rdparty/)
 set(OPENPOSE_INCLUDE_DIRS ${FIND_LIB_PREFIX}/openpose/include)
-set(OpenCV_INCLUDE_DIRS ${FIND_LIB_PREFIX}/openpose/3rdparty/windows/opencv/include)
+set(OpenCV_DIR ${FIND_LIB_PREFIX}/opencv-4.7.0/build)
+set(OPENCV_DLL_DIR ${FIND_LIB_PREFIX}/opencv-4.7.0/build/x64/vc16/bin)
 
 project (${PROJECT_NAME}
 	VERSION 0.0.1

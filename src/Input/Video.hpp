@@ -6,10 +6,8 @@ namespace Input {
 
 class Video : public Input 
 {
-    Video(const std::string& filename)
-        : filename_(filename);
-  
-    //cv::Mat& read() override;
+public:
+    cv::Mat read() override;
    
     void resize(const int width, const int height) override;
 
@@ -17,6 +15,9 @@ class Video : public Input
 
 private:
     std::string filename_;
+    cv::Mat image_;
+    int width_;
+    int height_;
 };
 
 }
