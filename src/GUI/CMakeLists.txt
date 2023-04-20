@@ -1,59 +1,39 @@
-cmake_minimum_required(VERSION 3.14)
-
-project(GUI VERSION 0.1 LANGUAGES CXX)
-
+set(LIB_NAME "GUI-lib")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Widgets REQUIRED)
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt5Multimedia REQUIRED)
-find_package(Qt5MultimediaWidgets REQUIRED)
-
-set(PROJECT_SOURCES
-        MainWindow.cpp
-        Interface.hpp
-        Interface.cpp
-        InterfaceStructs.hpp
-        GameScreen/VideoStreamContent.cpp
-        GameScreen/VideoStreamContent.h
-        PlayMenu/DancesModel.cpp
-        PlayMenu/DancesModel.h
-        PlayMenu/DancePreviewView.cpp
-        PlayMenu/DancePreviewView.h
-        qml.qrc
+add_library(${LIB_NAME} STATIC
+	MainWindow.cpp
+    main.qml
+    Interface.hpp
+    Interface.cpp        
+    InterfaceStructs.hpp
+    GameScreen/VideoStreamContent.cpp
+    GameScreen/VideoStreamContent.h
+    PlayMenu/DancesModel.cpp
+    PlayMenu/DancesModel.h
+    PlayMenu/DancePreviewView.cpp
+    PlayMenu/DancePreviewView.h
+    qml.qrc
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(GUI
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-else()
-    add_executable(GUI
-    ${PROJECT_SOURCES}
-        )
-endif()
+target_include_directories(${LIB_NAME} PUBLIC 
+	${CMAKE_CURRENT_LIST_DIR}
+)
 
-target_compile_definitions(GUI
+target_compile_definitions(${LIB_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(GUI
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets
-  ScoreBoard-lib
+
+target_link_libraries(${LIB_NAME}
+  Qt${QT_VERSION_MAJOR}::Core 
+  Qt${QT_VERSION_MAJOR}::Quick 
+  Qt${QT_VERSION_MAJOR}::Multimedia 
+  Qt${QT_VERSION_MAJOR}::MultimediaWidgets
 )
-set_target_properties(GUI PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+set_target_properties(${LIB_NAME} PROPERTIES
+    MACOSX_BUNDLE_GUI_IDENTIFIER opendance.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(GUI)
-    qt_finalize_executable(GUI)
-endif()
