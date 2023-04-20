@@ -9,6 +9,7 @@ qt5_add_resources(RCC_RESOURCES qml.qrc)
 
 add_library(${LIB_NAME} STATIC
 	MainWindow.cpp
+	MainWindow.hpp
     Interface.hpp
     Interface.cpp
     InterfaceStructs.hpp

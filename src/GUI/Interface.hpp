@@ -5,6 +5,7 @@
 namespace Interface {
 
 class Interface {
+
 public:
     void set_settings(const Settings& settings);
 
