@@ -7,6 +7,7 @@
 
 int start_gui(int argc, char *argv[])
 {
+    Q_INIT_RESOURCE(qml);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif

@@ -4,9 +4,11 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+
+qt5_add_resources(RCC_RESOURCES qml.qrc)
+
 add_library(${LIB_NAME} STATIC
 	MainWindow.cpp
-    main.qml
     Interface.hpp
     Interface.cpp        
     InterfaceStructs.hpp
@@ -16,15 +18,12 @@ add_library(${LIB_NAME} STATIC
     PlayMenu/DancesModel.h
     PlayMenu/DancePreviewView.cpp
     PlayMenu/DancePreviewView.h
-    qml.qrc
+    ${RCC_RESOURCES}
 )
 
 target_include_directories(${LIB_NAME} PUBLIC 
 	${CMAKE_CURRENT_LIST_DIR}
 )
-
-target_compile_definitions(${LIB_NAME}
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 target_link_libraries(${LIB_NAME}
   Qt${QT_VERSION_MAJOR}::Core 
