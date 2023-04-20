@@ -1,14 +1,22 @@
 #include "VideoStreamContent.h"
 #include <QPainter>
+#include <QCamera>
+#include <QTimer>
 
-VideoStreamContent::VideoStreamContent(QQuickItem* parent)
-    : QQuickPaintedItem(parent)
-    , m_pixmap(1024, 1024)
-{
-    m_pixmap.fill(Qt::red);
-}
+VideoStreamContent::VideoStreamContent(QQuickItem* parent) : QQuickPaintedItem(parent) {}
 
 void VideoStreamContent::paint(QPainter* painter)
 {
-    painter->drawPixmap(0, 0, m_pixmap);
+    painter->setBrush(Qt::darkBlue);
+    painter->drawRect(0, 0, this->width(), this->height());
+
+    QRectF target(10.0, 20.0, 80.0, 60.0);
+    QRectF source(0.0, 0.0, 70.0, 40.0);
+
+    painter->drawPixmap(0, 0, this->width(), this->height(), *m_streamSource);
+}
+
+void VideoStreamContent::imageUpdated()
+{
+    this->update();
 }

@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.15
 
 Rectangle {
 	id: root
@@ -27,12 +27,17 @@ Rectangle {
 	}
 
 	ListView {
+		id: dancesList
 		model: nameModel
-		layoutDirection: Qt.LeftRoRight
 		orientation: ListView.Horizontal
 		clip: true
 
-		height: 100
+		property DancePreview centerItem;
+		onContentXChanged: {
+			dancesList.centerItem = itemAt(contentX + width/2,height/2)
+		}
+
+		height: 150
 		anchors {
 			leftMargin: 50
 			left: parent.left
@@ -42,25 +47,47 @@ Rectangle {
 
 			verticalCenter: parent.verticalCenter
 		}
+		
+        NumberAnimation {
+			id: anim
+			properties: "contentX"
+			target: dancesList
+			running: false
+			from: 100
+			duration: 200
+		}
 
 		delegate: DancePreview {
+			id: prev
+
+			onMoveToMe: {
+				anim.from = dancesList.contentX;
+				anim.to = prev.x - (dancesList.width/2) + 250;
+				anim.start();
+			}
+
+			isCenterItem: dancesList.centerItem == prev
+		}
+		
+		Component.onCompleted: {
+			dancesList.contentX = dancesList.contentWidth/2 + 250
 		}
 	}
 
-	/*
 	StyledButton {
 		id: playButton
 
-		text: "Play"
+		text: "Start"
+		fontSize: 50
 
-		width: 300
-		height: 200
+		width: root.width * .2
+		height: root.height * .2
 		anchors {
 			horizontalCenter: root.horizontalCenter
-			verticalCenter: root.verticalCenter
+			bottom: parent.bottom
+			bottomMargin: 50
 		}
 
 		onClicked: root.gameSelected()
 	}
-	*/
 }
