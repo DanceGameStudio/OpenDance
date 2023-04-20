@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Interface.hpp"
+#include "GuiInterface.hpp"
 #include "InterfaceStructs.hpp"
 #include <QCamera>
 #include <QTimer>
@@ -12,7 +12,7 @@ class InterfaceWrapper : public QObject {
     Q_OBJECT
 
 public:
-    InterfaceWrapper(Interface& intf) : m_interface(intf), m_streamSource() {
+    InterfaceWrapper(GuiInterface& intf) : m_interface(intf), m_streamSource() {
         QCamera* camera = new QCamera();
         camera->start();
 
@@ -28,7 +28,7 @@ public:
         m_imgCap->capture();
     }
 
-    Interface& getInterface() { return m_interface; }
+    GuiInterface& getInterface() { return m_interface; }
 
     Q_INVOKABLE void connectCamera(VideoStreamContent* stream)
     {
@@ -47,7 +47,7 @@ signals:
     void videoStreamUpdated();
 
 private:
-    Interface& m_interface;
+    GuiInterface& m_interface;
     QPixmap m_streamSource;
     QCameraImageCapture* m_imgCap;
 
