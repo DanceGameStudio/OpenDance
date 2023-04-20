@@ -4,6 +4,10 @@
 #include <QQmlContext>
 #include "GameScreen/VideoStreamContent.h"
 #include "PlayMenu/DancesModel.h"
+#include <Interface.hpp>
+#include <InterfaceWrapper.h>
+#include <QTimer>
+#include <QCamera>
 
 int main(int argc, char *argv[])
 {
@@ -13,9 +17,14 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    QQmlContext* context = engine.rootContext(); // view is the QDeclarativeView
 
     // Register Types
     qmlRegisterType<VideoStreamContent>("Game", 1, 0, "VideoStreamContent");
+
+    Interface::Interface intf;
+    Interface::InterfaceWrapper intfWrap(intf);
+    context->setContextProperty("intfWrap", &intfWrap);
 
     // Dances Model into Qml Context
     //DancesModel dancesModel();

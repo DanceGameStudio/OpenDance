@@ -19,6 +19,10 @@ Rectangle {
 				rightMargin: anchors.topMargin
 				bottomMargin: anchors.topMargin
 			}
+
+			Component.onCompleted: {
+				intfWrap.connectVideo(streamBig.content)
+			}
 		}
 
 		VideoStream {
@@ -33,6 +37,10 @@ Rectangle {
 
 				bottom: streamBig.bottom
 				bottomMargin: -(container.height - streamBig.height)/3
+			}
+
+			Component.onCompleted: {
+				intfWrap.connectCamera(streamSmall.content)
 			}
 		}
 	}

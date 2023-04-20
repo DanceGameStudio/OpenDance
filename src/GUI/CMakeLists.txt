@@ -38,7 +38,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     add_executable(GUI
     ${PROJECT_SOURCES}
-        )
+         "InterfaceWrapper.h")
 endif()
 
 target_compile_definitions(GUI

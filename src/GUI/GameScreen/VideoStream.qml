@@ -3,22 +3,17 @@ import Game 1.0
 
 Rectangle {
 	id: root
-	
+		
 	color: "transparent"
 	border {
 		width: 5
 		color: "grey"
 	}
 
-	/*
-	AnimatedImage  {
-		source: "dancing-robo.gif"
-
-		anchors.fill: parent
-	}
-	*/
+	property alias content: content
 
 	VideoStreamContent {
+		id: content
 		anchors {
 			fill: parent
 			topMargin: root.border.width
