@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+		<file alias="main.qml">main.qml</file>
         <file alias="StyledButton.qml">Components/StyledButton.qml</file>
         <file alias="MainMenuButton.qml">MainMenu/MainMenuButton.qml</file>
         <file alias="CreditsMenu.qml">CreditsMenu/CreditsMenu.qml</file>
