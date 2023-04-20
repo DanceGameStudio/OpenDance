@@ -4,6 +4,7 @@ add_library(GameLogic-lib STATIC
 )
 
 target_link_libraries(GameLogic-lib
+	PUBLIC Interface-lib
 	PUBLIC Utility-lib
 	PUBLIC Graphics-lib
 	PUBLIC Input-lib

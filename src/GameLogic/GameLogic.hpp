@@ -4,6 +4,7 @@
 #include "PoseAnalyser.hpp"
 #include "ScoreBoard.hpp"
 #include "Settings.hpp"
+#include <GuiInterface.hpp>
 
 namespace GameLogic {
 

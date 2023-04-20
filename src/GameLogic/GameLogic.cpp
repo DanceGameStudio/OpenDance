@@ -3,8 +3,7 @@
 namespace GameLogic {
 
 GameLogic::GameLogic() 
-{
-    load_configuration();
+{ 
 }
 
 void GameLogic::loop()
