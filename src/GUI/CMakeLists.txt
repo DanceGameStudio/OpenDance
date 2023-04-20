@@ -10,8 +10,9 @@ qt5_add_resources(RCC_RESOURCES qml.qrc)
 add_library(${LIB_NAME} STATIC
 	MainWindow.cpp
     Interface.hpp
-    Interface.cpp        
+    Interface.cpp
     InterfaceStructs.hpp
+    InterfaceWrapper.h
     GameScreen/VideoStreamContent.cpp
     GameScreen/VideoStreamContent.h
     PlayMenu/DancesModel.cpp
