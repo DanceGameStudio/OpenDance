@@ -9,10 +9,12 @@ GameLogic::GameLogic()
 
 void GameLogic::loop()
 {
+    
     //cv::Mat camera_image = graphics_->camera_->read();
-    //cv::Mat video_image = graphics_->video_->read();
-    // 
-    //PoseEstimation::Pose camera_pose = pose_analyser_->detector_->get_pose(&camera_image);
+    cv::Mat video_image = graphics_->video_->read("");
+    //
+    //cv::Mat& bla = camera_image;
+    //PoseEstimation::Pose camera_pose = pose_analyser_->detector_->get_pose(&camera_pose);
     //PoseEstimation::Pose video_pose = pose_analyser_->detector_->get_pose(&video_image);
     // 
     //pose_analyser_->compare_poses(camera_pose, video_pose);
