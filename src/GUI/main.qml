@@ -23,7 +23,7 @@ Window {
 
         anchors.fill: parent
 
-        visible: false
+        visible: true
     }
 
     MainMenu {
@@ -44,7 +44,7 @@ Window {
     PlayMenu {
         id: playMenu
         anchors.fill: parent
-        visible: true
+        visible: false
 
         onGameSelected: { playMenu.visible = false; gameScreen.visible = true; }
     }

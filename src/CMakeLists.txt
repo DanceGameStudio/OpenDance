@@ -5,6 +5,7 @@ find_package(Qt5MultimediaWidgets REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+add_subdirectory(Interfaces)
 add_subdirectory(Utility)
 add_subdirectory(GameLogic)
 add_subdirectory(Graphics)
@@ -21,6 +22,7 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	${OpenCV_LIBS}
 	GameLogic-lib
+    PUBLIC Interface-lib
     PUBLIC GUI-lib
 )
 

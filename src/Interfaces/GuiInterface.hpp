@@ -4,7 +4,7 @@
 
 namespace Interface {
 
-class Interface {
+class GuiInterface {
 public:
     void set_settings(const Settings& settings);
 
