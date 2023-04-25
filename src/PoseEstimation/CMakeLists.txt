@@ -12,4 +12,5 @@ target_link_libraries(PoseEstimation-lib
 
 target_include_directories(PoseEstimation-lib PUBLIC 
 	${CMAKE_CURRENT_LIST_DIR}
+	${OpenCV_INCLUDE_DIRS}
 )
