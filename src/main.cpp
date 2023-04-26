@@ -3,7 +3,7 @@
 #include "MainWindow.cpp"
 #include "GuiInterface.hpp"
 
-int main([[maybe_used]] int argc, [[maybe_used]] char** argv)
+int main(int argc, char** argv)
 {
     Interface::GuiInterface* intf = new Interface::GuiInterface();
 
