@@ -2,7 +2,7 @@
 
 namespace Interface {
 
-void GuiInterface::set_graphics(Graphics graphics)
+void GuiInterface::set_graphics(Graphics& graphics)
 {
     graphics_ = graphics;
 }

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Interfaces/GuiInterface.hpp"
-#include "InterfaceStructs.hpp"
 #include <QCamera>
 #include <QTimer>
 #include <QCameraImageCapture>
+#include "GuiInterface.hpp"
+#include "GameScreen/VideoStreamContent.h"
 
 namespace Interface {
 
@@ -12,33 +12,37 @@ class InterfaceWrapper : public QObject {
     Q_OBJECT
 
 public:
-    InterfaceWrapper(GuiInterface& intf) : m_interface(intf), m_streamSource() {
-        QCamera* camera = new QCamera();
-        camera->start();
+    InterfaceWrapper(GuiInterface& intf) : m_interface(intf) {
+        QTimer* timer = new QTimer();
+        timer->setInterval(100);
+        QObject::connect(timer, &QTimer::timeout, [&]() {
+            cv::Mat& mat = m_interface.get_graphics().camera_image;
 
-        m_imgCap = new QCameraImageCapture(camera);
-        connect(m_imgCap, &QCameraImageCapture::imageCaptured, [&](int id, const QImage& preview) {
-            m_streamSource.convertFromImage(preview);
+            qDebug() << "Update!";
+            auto src = std::make_shared<QImage>((unsigned char*)mat.data, mat.cols, mat.rows, QImage::Format_BGR888);
 
-            emit videoStreamUpdated();
+            cam->setSrc(src);
+            vid->setSrc(src);
+
             emit cameraStreamUpdated();
-
-            QTimer::singleShot(10, [&]() { m_imgCap->capture(); });
+            emit videoStreamUpdated();
         });
-        m_imgCap->capture();
+        timer->start();
     }
 
     GuiInterface& getInterface() { return m_interface; }
 
     Q_INVOKABLE void connectCamera(VideoStreamContent* stream)
     {
-        stream->setStreamSource(&m_streamSource);
+        cam = stream;
+        //stream->setInterface(this);
         connect(this, &InterfaceWrapper::cameraStreamUpdated, stream, &VideoStreamContent::imageUpdated);
     }
 
     Q_INVOKABLE void connectVideo(VideoStreamContent* stream)
     {
-        stream->setStreamSource(&m_streamSource);
+        vid = stream;
+        //stream->setInterface(this);
         connect(this, &InterfaceWrapper::videoStreamUpdated, stream, &VideoStreamContent::imageUpdated);
     }
 
@@ -48,9 +52,8 @@ signals:
 
 private:
     GuiInterface& m_interface;
-    QPixmap m_streamSource;
-    QCameraImageCapture* m_imgCap;
-
+    VideoStreamContent* cam;
+    VideoStreamContent* vid;
 };
 
 }

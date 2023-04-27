@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "opencv2/opencv.hpp"
 
 namespace Interface {
 
