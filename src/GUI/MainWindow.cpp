@@ -3,7 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "GameScreen/VideoStreamContent.h"
-#include "GuiInterface.hpp"
+#include "../Interfaces/GuiInterface.hpp"
 #include "InterfaceWrapper.h"
 
 //#include "PlayMenu/DancesModel.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GuiInterface.hpp"
+#include "../Interfaces/GuiInterface.hpp"
 #include "InterfaceStructs.hpp"
 #include <QCamera>
 #include <QTimer>
