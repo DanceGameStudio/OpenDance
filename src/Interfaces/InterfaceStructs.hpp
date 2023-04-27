@@ -10,8 +10,8 @@ struct Settings {
 };
 
 struct Graphics {
-    // cv::Mat video_image;
-    // cv::Mat camera_image;
+    cv::Mat video_image;
+    cv::Mat camera_image;
 };
 
 struct Player {

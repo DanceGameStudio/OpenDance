@@ -11,7 +11,7 @@ struct Keypoint {
 
 struct Pose {
     std::vector<Keypoint> keypoints;
-    const std::chrono::steady_clock::time_point timestamp;
+    std::chrono::steady_clock::time_point timestamp;
 };
 
 }
