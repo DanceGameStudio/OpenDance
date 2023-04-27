@@ -4,6 +4,10 @@ import QtQuick.Controls 2.15
 Rectangle {
 	id: root
 	color: "transparent"
+	
+	MenuTitle {
+		text: "Select Dance"
+	}
 
 	signal gameSelected
 
@@ -73,21 +77,24 @@ Rectangle {
 			dancesList.contentX = dancesList.contentWidth/2 + 250
 		}
 	}
-
+	
+	
 	StyledButton {
 		id: playButton
 
-		text: "Start"
+		text: "Play"
 		fontSize: 50
 
 		width: root.width * .2
-		height: root.height * .2
+		height: root.height * .1
 		anchors {
-			horizontalCenter: root.horizontalCenter
-			bottom: parent.bottom
-			bottomMargin: 50
+			top: dancesList.bottom
+			topMargin: 50
+			horizontalCenter: parent.horizontalCenter
 		}
 
 		onClicked: root.gameSelected()
 	}
+
+	BackButton {}
 }

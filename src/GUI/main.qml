@@ -23,7 +23,7 @@ Window {
 
         anchors.fill: parent
 
-        visible: true
+        visible: false
     }
 
     MainMenu {

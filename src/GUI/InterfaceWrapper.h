@@ -18,7 +18,6 @@ public:
         QObject::connect(timer, &QTimer::timeout, [&]() {
             cv::Mat& mat = m_interface.get_graphics().camera_image;
 
-            qDebug() << "Update!";
             auto src = std::make_shared<QImage>((unsigned char*)mat.data, mat.cols, mat.rows, QImage::Format_BGR888);
 
             cam->setSrc(src);
