@@ -8,11 +8,19 @@ class GuiInterface {
 public:
     void set_settings(const Settings& settings);
 
-    const Settings& get_settings();
+    Settings& get_settings();
 
-    const Graphics& get_graphics();
+    Graphics& get_graphics();
 
-    const ScoreBoard& get_scoreboard();
+    ScoreBoard& get_scoreboard();
+
+    void set_scoreboard(ScoreBoard& score_board);
+
+    void set_graphics(Graphics& graphics);
+
+    Graphics graphics_;
+    Settings settings_;
+    ScoreBoard score_board_;
 };
 
 }
