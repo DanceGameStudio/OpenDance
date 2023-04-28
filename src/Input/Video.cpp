@@ -14,7 +14,7 @@ cv::Mat Video::read()
     cv::Mat image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
     capture_.read(image);
     
-    if (image.size().height != height_ && image.size().width != width_) {
+    if (image.size().height != height_ && image.size().width != width_ && !image.empty()) {
         cv::resize(image, image, cv::Size(width_, height_), cv::INTER_LINEAR);
     }
     return image;
