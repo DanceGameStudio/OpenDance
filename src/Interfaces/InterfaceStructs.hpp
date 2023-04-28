@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "opencv2/opencv.hpp"
 
 namespace Interface {
 
@@ -10,8 +11,8 @@ struct Settings {
 };
 
 struct Graphics {
-    // cv::Mat video_image;
-    // cv::Mat camera_image;
+    cv::Mat video_image;
+    cv::Mat camera_image;
 };
 
 struct Player {

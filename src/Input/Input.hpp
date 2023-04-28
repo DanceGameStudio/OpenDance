@@ -15,7 +15,8 @@ enum ColorSpace {
 class Input {
 public:
     virtual ~Input() { }
-    virtual cv::Mat read() = 0;
+    virtual cv::Mat read();
+    virtual bool connect();
     virtual void resize(const int width, const int height) = 0;
     virtual void change_color_space(const ColorSpace color_space) = 0;
 };

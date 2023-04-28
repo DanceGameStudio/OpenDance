@@ -1,18 +1,17 @@
 #pragma once
 
-#include "GuiInterface.hpp"
 #include <QGuiApplication>
-#include "GuiInterface.hpp"
+#include "../Interfaces/GuiInterface.hpp"
 
 class GUI {
 
 public:
-    GUI(Interface::GuiInterface* intf)
+    GUI(std::shared_ptr<Interface::GuiInterface> intf)
         : m_intf(intf) {};
 
     void run(int argc, char** argv);
 
 private:
-    Interface::GuiInterface* m_intf;
+    std::shared_ptr<Interface::GuiInterface> m_intf;
 
 };

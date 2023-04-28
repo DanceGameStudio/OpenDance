@@ -1,4 +1,6 @@
 add_library(Utility-lib STATIC
+	ConfigFile.hpp
+	ConfigFile.cpp
 	Math.hpp
 	Math.cpp
 	Utility.hpp

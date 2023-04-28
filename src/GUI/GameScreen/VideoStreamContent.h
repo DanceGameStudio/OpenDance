@@ -1,5 +1,6 @@
+#pragma once
+
 #include <QQuickPaintedItem>
-#include <QPixmap>
 #include <QImage>
 
 class VideoStreamContent : public QQuickPaintedItem {
@@ -9,15 +10,14 @@ class VideoStreamContent : public QQuickPaintedItem {
 public:
     VideoStreamContent(QQuickItem* parent = nullptr);
     void paint(QPainter* painter) override;
-    void setStreamSource(QPixmap* src) {
-        m_streamSource = src;
-    }
-        
+
+    void setSrc(std::shared_ptr<QImage> src) { m_src = src; }
+
+
 public slots:
     void imageUpdated();
 
 private:
-    QPixmap* m_streamSource;
-    //QImage m_img;
+    std::shared_ptr<QImage> m_src;
 
 };

@@ -32,6 +32,12 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         ${OPENCV_DLL_DIR}/opencv_videoio_ffmpeg470_64.dll
         ${OPENCV_DLL_DIR}/opencv_videoio_msmf470_64d.dll
     )
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(OPENCV_DLLS 
+        ${OPENCV_DLL_DIR}/opencv_world470.dll
+        ${OPENCV_DLL_DIR}/opencv_videoio_ffmpeg470_64.dll
+        ${OPENCV_DLL_DIR}/opencv_videoio_msmf470_64.dll
+    )
 endif()
 
 foreach(DLL ${OPENCV_DLLS})

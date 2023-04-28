@@ -1,7 +1,9 @@
 <RCC>
     <qresource prefix="/">
 		<file>main.qml</file>
+        <file alias="MenuTitle.qml">Components/MenuTitle.qml</file>
         <file alias="StyledButton.qml">Components/StyledButton.qml</file>
+        <file alias="BackButton.qml">Components/BackButton.qml</file>
         <file alias="MainMenuButton.qml">MainMenu/MainMenuButton.qml</file>
         <file alias="CreditsMenu.qml">CreditsMenu/CreditsMenu.qml</file>
         <file alias="LandingScreen.qml">LandingScreen/LandingScreen.qml</file>
