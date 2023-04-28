@@ -22,8 +22,8 @@ public:
 private:
     cv::VideoCapture capture_;
     cv::Mat image_;
-    int width_;
-    int height_;
+    int width_  = 640;
+    int height_ = 480;
     int device_id_ = 0;
 };
 
