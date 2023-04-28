@@ -23,8 +23,8 @@ private:
     cv::VideoCapture capture_;
     std::string video_path_ = "";
     cv::Mat image_;
-    int width_;
-    int height_;
+    int width_ = 640;
+    int height_ = 480;
 };
 
 }
