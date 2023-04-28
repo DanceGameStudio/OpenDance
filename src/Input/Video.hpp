@@ -13,8 +13,6 @@ public:
 
     void resize(const int width, const int height) override;
 
-    void change_color_space(const ColorSpace colorSpace) override;
-
     void change_video_path(std::string& path);
 
     bool connect() override;
