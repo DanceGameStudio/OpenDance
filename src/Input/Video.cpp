@@ -14,11 +14,25 @@ void Video::run()
     while (running_) {
         bool success = capture_.read(image_);
         if (!success) {
-            image_ = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
+            image_ = cv::Mat(height_, width_, CV_8UC3, cv::Scalar(0, 0, 0));          
         } else if (image_.size().height != height_ || image_.size().width != width_ && !image_.empty()) {
             cv::resize(image_, image_, cv::Size(width_, height_), cv::INTER_LINEAR);
         }
-        std::this_thread::sleep_for(std::chrono::seconds(fps_));
+        auto now = std::chrono::system_clock::now();
+        std::ostringstream oss;
+        oss << now;
+        std::string time = oss.str();
+
+        if (!image_.empty()) {
+            cv::putText(image_, // target image
+                time, // text
+                cv::Point(10, image_.rows / 2), // top-left position
+                cv::FONT_HERSHEY_DUPLEX,
+                1.0,
+                CV_RGB(118, 185, 0), // font color
+                2);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 }
 

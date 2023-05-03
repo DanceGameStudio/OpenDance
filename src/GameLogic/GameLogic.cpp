@@ -26,23 +26,14 @@ void GameLogic::loop()
         graphics.camera_image = camera_image;
         interface_->set_graphics(graphics);
 
-        auto now = std::chrono::system_clock::now();
-        std::ostringstream oss;
-        oss << now;
-        std::string time = oss.str();
-
         if (!video_image.empty()) { 
-            cv::putText(video_image, // target image
-                time, // text
-                cv::Point(10, video_image.rows / 2), // top-left position
-                cv::FONT_HERSHEY_DUPLEX,
-                1.0,
-                CV_RGB(118, 185, 0), // font color
-                2);
             cv::imshow("video_image", video_image);
             cv::waitKey(1);
         }
     }
+
+    graphics_->video_->stop();
+    graphics_test_->video_->stop();
 }
 
 void GameLogic::load_configuration()
