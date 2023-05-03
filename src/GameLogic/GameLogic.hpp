@@ -13,7 +13,10 @@ class GameLogic
 {
 public:
     GameLogic(std::shared_ptr<Interface::GuiInterface> gui_interface)
-        : interface_(gui_interface) {};
+        : interface_(gui_interface) {
+
+        load_configuration();
+    };
 
     void loop();
 

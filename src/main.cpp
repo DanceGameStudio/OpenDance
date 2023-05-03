@@ -6,20 +6,20 @@
 
 int main([[maybe_used]] int argc, [[maybe_used]] char** argv)
 {
-    auto intf = std::make_shared<Interface::GuiInterface>();
+    auto gui_interface = std::make_shared<Interface::GuiInterface>();
 
     bool stopGame = false;
 
     std::thread thrd_game([&]() {
-        std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>(intf);
+        std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>(gui_interface);
         while (!stopGame) {
             game->loop();
         }
     });
 
     std::thread thrd_gui([&]() {
-        GUI gui(intf);
-        gui.run(argc, argv);
+        std::unique_ptr<GUI> gui = std::make_unique<GUI>(gui_interface);
+        gui->run(argc, argv);
         stopGame = true;
     });
 

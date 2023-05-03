@@ -12,24 +12,26 @@ class InterfaceWrapper : public QObject {
     Q_OBJECT
 
 public:
-    InterfaceWrapper(GuiInterface& intf) : m_interface(intf) {
+    InterfaceWrapper(std::shared_ptr<Interface::GuiInterface> intf)
+        : m_interface(intf)
+    {
         QTimer* timer = new QTimer();
         timer->setInterval(100);
         QObject::connect(timer, &QTimer::timeout, [&]() {
-            cv::Mat& mat = m_interface.get_graphics().camera_image;
-
-            auto src = std::make_shared<QImage>((unsigned char*)mat.data, mat.cols, mat.rows, QImage::Format_BGR888);
-
-            cam->setSrc(src);
-            vid->setSrc(src);
-
+            cv::Mat mat = m_interface->get_graphics()->camera_image;
+            QImage img(mat.data, mat.cols, mat.rows, static_cast<int>(mat.step), QImage::Format_BGR888);
+            cam->setSrc(img);
             emit cameraStreamUpdated();
+            
+            mat = m_interface->get_graphics()->video_image;
+            img = QImage(mat.data, mat.cols, mat.rows, static_cast<int>(mat.step), QImage::Format_BGR888);
+            vid->setSrc(img);
             emit videoStreamUpdated();
         });
         timer->start();
     }
 
-    GuiInterface& getInterface() { return m_interface; }
+    std::shared_ptr<Interface::GuiInterface> getInterface() { return m_interface; }
 
     Q_INVOKABLE void connectCamera(VideoStreamContent* stream)
     {
@@ -50,7 +52,7 @@ signals:
     void videoStreamUpdated();
 
 private:
-    GuiInterface& m_interface;
+    std::shared_ptr<Interface::GuiInterface> m_interface;
     VideoStreamContent* cam;
     VideoStreamContent* vid;
 };

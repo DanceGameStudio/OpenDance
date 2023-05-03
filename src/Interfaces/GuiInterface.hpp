@@ -5,12 +5,15 @@
 namespace Interface {
 
 class GuiInterface {
+
 public:
+    GuiInterface() { }
+
     void set_settings(const Settings& settings);
 
     Settings& get_settings();
 
-    Graphics& get_graphics();
+    std::shared_ptr<Graphics> get_graphics();
 
     ScoreBoard& get_scoreboard();
 
@@ -18,7 +21,7 @@ public:
 
     void set_graphics(Graphics& graphics);
 
-    Graphics graphics_;
+    std::shared_ptr<Graphics> graphics_ = std::make_shared<Interface::Graphics>();
     Settings settings_;
     ScoreBoard score_board_;
 };

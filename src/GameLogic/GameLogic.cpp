@@ -17,10 +17,10 @@ void GameLogic::loop()
     std::cout << "Similarity: " << cosine_similarity << "\n";
 
     // Communication with the gui
-    Interface::Graphics graphics = Interface::Graphics();
-    graphics.video_image = video_image;
-    graphics.camera_image = camera_image;
-    interface_->set_graphics(graphics);
+    auto graphics = interface_->get_graphics();
+    graphics->camera_image = camera_image;
+    graphics->video_image = video_image;
+
 }
 
 void GameLogic::load_configuration()
