@@ -11,11 +11,12 @@ Camera::Camera()
 
 cv::Mat Camera::read() 
 {
-    cv::Mat image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
-    if (capture_.isOpened()) {
-        capture_.read(image);
+    cv::Mat image;
+    bool success = capture_.read(image);
+    if (!success) {
+        image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
     }
- 
+
     if (image.size().height != height_ || image.size().width != width_ && !image.empty()) {
         cv::resize(image, image, cv::Size(width_, height_), cv::INTER_LINEAR);
     }
