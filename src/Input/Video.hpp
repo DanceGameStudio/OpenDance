@@ -21,6 +21,7 @@ public:
 
     void set_read_mode(bool mode);
 
+    std::mutex video_mutex_; 
 private:
     cv::VideoCapture capture_;
     std::string video_path_ = "";

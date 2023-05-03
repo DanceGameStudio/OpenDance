@@ -11,8 +11,13 @@ void GameLogic::loop()
     graphics_test_->video_->read();
 
     while (true) {
+        graphics_->video_->video_mutex_.lock();
         cv::Mat video_image = graphics_->video_->get_image();
+        graphics_->video_->video_mutex_.unlock();
+        graphics_test_->video_->video_mutex_.lock();
         cv::Mat camera_image = graphics_test_->video_->get_image();
+        graphics_test_->video_->video_mutex_.unlock();
+     
 
         PoseEstimation::Pose camera_pose = pose_analyser_->detector_->get_pose(camera_image);
         PoseEstimation::Pose video_pose = pose_analyser_->detector_->get_pose(video_image);
@@ -39,7 +44,7 @@ void GameLogic::loop()
             CV_RGB(118, 185, 0), // font color
             2);
         cv::imshow("video_image", video_image);
-        cv::waitKey(0);
+        cv::waitKey(1);
     }
 }
 
