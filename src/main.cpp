@@ -12,9 +12,7 @@ int main([[maybe_used]] int argc, [[maybe_used]] char** argv)
 
     std::thread thrd_game([&]() {
         std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>(intf);
-        while (!stopGame) {
-            game->loop();
-        }
+        game->loop();
     });
 
     std::thread thrd_gui([&]() {

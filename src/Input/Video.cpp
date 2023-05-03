@@ -9,18 +9,34 @@ Video::Video()
 {
 }
 
-cv::Mat Video::read() 
+void Video::read() 
 {
-    cv::Mat image;
-    bool success = capture_.read(image);
-    if (!success) {
-        image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
-    }
-    
-    if (image.size().height != height_ || image.size().width != width_ && !image.empty()) {
-        cv::resize(image, image, cv::Size(width_, height_), cv::INTER_LINEAR);
-    }
-    return image;
+    read_mode_ = true;
+    std::thread input_thread([&]() {     
+        while (read_mode_) {
+            bool success = capture_.read(image_);
+            if (!success) {
+                image_ = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
+                read_mode_ = false;
+            }
+
+            if (image_.size().height != height_ || image_.size().width != width_ && !image_.empty()) {
+                cv::resize(image_, image_, cv::Size(width_, height_), cv::INTER_LINEAR);
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(fps_));
+        }
+    });
+    input_thread.join();
+}
+
+cv::Mat Video::get_image()
+{
+    return image_;
+}
+
+void Video::set_read_mode(bool mode)
+{
+    read_mode_ = mode;
 }
 
 void Video::resize(const int width, const int height)

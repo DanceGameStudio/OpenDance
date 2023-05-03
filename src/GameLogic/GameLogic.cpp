@@ -1,4 +1,5 @@
 #include "GameLogic.hpp"
+#include "opencv2/highgui.hpp"
 
 namespace GameLogic {
 
@@ -6,26 +7,45 @@ void GameLogic::loop()
 {
     // Image Processing
     //cv::Mat camera_image = graphics_->camera_->read();
-    cv::Mat video_image = graphics_->video_->read();
+    graphics_->video_->read();
+    graphics_test_->video_->read();
 
-    cv::Mat camera_image = graphics_test_->video_->read();
-    
-    PoseEstimation::Pose camera_pose = pose_analyser_->detector_->get_pose(camera_image);
-    PoseEstimation::Pose video_pose = pose_analyser_->detector_->get_pose(video_image);
-    
-    float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-    std::cout << "Similarity: " << cosine_similarity << "\n";
+    while (true) {
+        cv::Mat video_image = graphics_->video_->get_image();
+        cv::Mat camera_image = graphics_test_->video_->get_image();
 
-    // Communication with the gui
-    Interface::Graphics graphics = Interface::Graphics();
-    graphics.video_image = video_image;
-    graphics.camera_image = camera_image;
-    interface_->set_graphics(graphics);
+        PoseEstimation::Pose camera_pose = pose_analyser_->detector_->get_pose(camera_image);
+        PoseEstimation::Pose video_pose = pose_analyser_->detector_->get_pose(video_image);
+
+        float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
+        std::cout << "Similarity: " << cosine_similarity << "\n";
+
+        // Communication with the gui
+        Interface::Graphics graphics = Interface::Graphics();
+        graphics.video_image = video_image;
+        graphics.camera_image = camera_image;
+        interface_->set_graphics(graphics);
+
+        auto now = std::chrono::system_clock::now();
+        std::ostringstream oss;
+        oss << now;
+        std::string time = oss.str();
+        
+        cv::putText(video_image, // target image
+            time, // text
+            cv::Point(10, video_image.rows / 2), // top-left position
+            cv::FONT_HERSHEY_DUPLEX,
+            1.0,
+            CV_RGB(118, 185, 0), // font color
+            2);
+        cv::imshow("video_image", video_image);
+        cv::waitKey(0);
+    }
 }
 
 void GameLogic::load_configuration()
 {
-    std::string video_path = "../video/Beispiel_01.mp4";
+    std::string video_path = "C:/Users/Munir/source/repos/DanceGameStudio/OpenDanceCPP/video/Beispiel_01.mp4";
     int device_id = 0;
     graphics_->camera_->change_device_id(device_id);
     graphics_->video_->change_video_path(video_path);
