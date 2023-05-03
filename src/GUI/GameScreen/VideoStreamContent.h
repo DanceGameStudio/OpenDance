@@ -2,6 +2,7 @@
 
 #include <QQuickPaintedItem>
 #include <QImage>
+#include <QSize>
 
 class VideoStreamContent : public QQuickPaintedItem {
     Q_OBJECT
@@ -9,15 +10,18 @@ class VideoStreamContent : public QQuickPaintedItem {
 
 public:
     VideoStreamContent(QQuickItem* parent = nullptr);
+
     void paint(QPainter* painter) override;
 
-    void setSrc(std::shared_ptr<QImage> src) { m_src = src; }
-
+    void setSrc(QImage& src)
+    {
+        m_src = src.copy();
+    }
 
 public slots:
     void imageUpdated();
 
 private:
-    std::shared_ptr<QImage> m_src;
+    QImage m_src;
 
 };
