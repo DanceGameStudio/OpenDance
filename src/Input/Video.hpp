@@ -9,7 +9,11 @@ class Video : public Input
 public:
     Video();
 
-    void read();
+    void run();
+
+    void stop();
+
+    void start();
 
     cv::Mat get_image();
 
@@ -19,17 +23,18 @@ public:
 
     bool connect() override;
 
-    void set_read_mode(bool mode);
-
-    std::mutex video_mutex_; 
 private:
+    std::thread video_thread_;
+    std::mutex mutex_;
+
     cv::VideoCapture capture_;
     std::string video_path_ = "";
     cv::Mat image_;
+ 
     int width_ = 640;
     int height_ = 480;
-    int fps_ = 1;
-    bool read_mode_ = false;
+    int fps_ = 60;
+    bool running_ = false;
 };
 
 }

@@ -7,17 +7,12 @@ void GameLogic::loop()
 {
     // Image Processing
     //cv::Mat camera_image = graphics_->camera_->read();
-    graphics_->video_->read();
-    graphics_test_->video_->read();
+    graphics_->video_->start();
+    graphics_test_->video_->start();
 
     while (true) {
-        graphics_->video_->video_mutex_.lock();
         cv::Mat video_image = graphics_->video_->get_image();
-        graphics_->video_->video_mutex_.unlock();
-        graphics_test_->video_->video_mutex_.lock();
         cv::Mat camera_image = graphics_test_->video_->get_image();
-        graphics_test_->video_->video_mutex_.unlock();
-     
 
         PoseEstimation::Pose camera_pose = pose_analyser_->detector_->get_pose(camera_image);
         PoseEstimation::Pose video_pose = pose_analyser_->detector_->get_pose(video_image);
@@ -35,16 +30,18 @@ void GameLogic::loop()
         std::ostringstream oss;
         oss << now;
         std::string time = oss.str();
-        
-        cv::putText(video_image, // target image
-            time, // text
-            cv::Point(10, video_image.rows / 2), // top-left position
-            cv::FONT_HERSHEY_DUPLEX,
-            1.0,
-            CV_RGB(118, 185, 0), // font color
-            2);
-        cv::imshow("video_image", video_image);
-        cv::waitKey(1);
+
+        if (!video_image.empty()) { 
+            cv::putText(video_image, // target image
+                time, // text
+                cv::Point(10, video_image.rows / 2), // top-left position
+                cv::FONT_HERSHEY_DUPLEX,
+                1.0,
+                CV_RGB(118, 185, 0), // font color
+                2);
+            cv::imshow("video_image", video_image);
+            cv::waitKey(1);
+        }
     }
 }
 
