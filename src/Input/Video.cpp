@@ -16,7 +16,7 @@ cv::Mat Video::read()
         capture_.read(image);
     }
     
-    if (image.size().height != height_ && image.size().width != width_ && !image.empty()) {
+    if (image.size().height != height_ || image.size().width != width_ && !image.empty()) {
         cv::resize(image, image, cv::Size(width_, height_), cv::INTER_LINEAR);
     }
     return image;
