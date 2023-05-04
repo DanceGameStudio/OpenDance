@@ -5,19 +5,52 @@ namespace PoseEstimation {
 float PoseAnalyser::compare_poses(Pose& first_pose, Pose& second_pose)
 {
     float result = 0;
-    try {
-        // Compare each body part pose and save to result (in the future we might want to turn individual comparisons off)
+
+    // Fill the map with all obtainable poses
+    initialise_valid_poses(first_pose, second_pose);
+
+    // Compare all obtainable poses
+    if (cosine_similarities_.count(Poses::POSE_ARMS))
         result += compare_arms(first_pose, second_pose);
+    if (cosine_similarities_.count(Poses::POSE_LEGS))
         result += compare_legs(first_pose, second_pose);
+    if (cosine_similarities_.count(Poses::POSE_CHEST))
         result += compare_chest(first_pose, second_pose);
+    if (cosine_similarities_.count(Poses::POSE_ARMS))
         result += compare_head(first_pose, second_pose);
-        // Divide result by the number of comparisons
-        result /= 4;
-    } catch (...) {
-        std::cerr << "Keypoints not correct" << std::endl;
-    }
+
+    // Divide the result by the number of obtained poses
+    result /= cosine_similarities_.size();
+
+    // Clear the map for the next run
+    cosine_similarities_.clear();
 
     return result;
+}
+
+void PoseAnalyser::initialise_valid_poses(Pose& first_pose, Pose& second_pose)
+{
+    // Check which compares we can actually do and initialise the map accordingly
+
+    // Arm needs 2, 3, 4, 5, 6 and 7
+    if (pose_has(first_pose, second_pose, 2) && pose_has(first_pose, second_pose, 3) && pose_has(first_pose, second_pose, 4)
+        && pose_has(first_pose, second_pose, 5) && pose_has(first_pose, second_pose, 6) && pose_has(first_pose, second_pose, 7))
+        cosine_similarities_.insert(std::make_pair(Poses::POSE_ARMS, 0.f));
+
+    // Leg needs 8, 9, 10, 11, 12 and 13
+    if (pose_has(first_pose, second_pose, 8) && pose_has(first_pose, second_pose, 9) && pose_has(first_pose, second_pose, 10)
+        && pose_has(first_pose, second_pose, 11) && pose_has(first_pose, second_pose, 12) && pose_has(first_pose, second_pose, 13))
+        cosine_similarities_.insert(std::make_pair(Poses::POSE_LEGS, 0.f));
+
+    // Chest needs 1, 2, 5, 8, 11
+    if (pose_has(first_pose, second_pose, 1) && pose_has(first_pose, second_pose, 2) && pose_has(first_pose, second_pose, 5)
+        && pose_has(first_pose, second_pose, 8) && pose_has(first_pose, second_pose, 11))
+        cosine_similarities_.insert(std::make_pair(Poses::POSE_CHEST, 0.f));
+
+    // Head 0, 1, 14, 15, 16 and 17
+    if (pose_has(first_pose, second_pose, 0) && pose_has(first_pose, second_pose, 1) && pose_has(first_pose, second_pose, 14)
+        && pose_has(first_pose, second_pose, 15) && pose_has(first_pose, second_pose, 16) && pose_has(first_pose, second_pose, 17))
+        cosine_similarities_.insert(std::make_pair(Poses::POSE_HEAD, 0.f));
 }
 
 float PoseAnalyser::compare_arms(Pose& first_pose, Pose& second_pose)
@@ -171,6 +204,13 @@ Utility::Math::Vector3 PoseAnalyser::keypoints_to_vector3(Keypoint& start_keypoi
 
     // Return a Vector3 object with the computed x, y, and z values
     return Utility::Math::Vector3(x, y, z);
+}
+
+bool PoseAnalyser::pose_has(Pose& first_pose, Pose& second_pose, int index)
+{
+    bool first_has = index < first_pose.keypoints.size();
+    bool second_has = index < second_pose.keypoints.size();
+    return first_has && second_has;
 }
 
 }
