@@ -11,27 +11,22 @@ void GameLogic::loop()
     cv::Mat camera_image;
     PoseEstimation::Pose camera_pose;
     PoseEstimation::Pose video_pose;
-    ScoreBoard::Player player;
-    player.name = "Tim";
-    score_board_->player_list_.push_back(player);
     auto graphics = interface_->get_graphics();
-    auto scoreboard = interface_->get_scoreboard();
 
     while (true) {
         camera_image = graphics_->get_camera_image();
         video_image  = graphics_->get_video_image();
 
-        camera_pose = pose_analyser_->detector_->get_pose(camera_image);
-        video_pose = pose_analyser_->detector_->get_pose(video_image);
+        //camera_pose = pose_analyser_->detector_->get_pose(camera_image);
+        //video_pose = pose_analyser_->detector_->get_pose(video_image);
 
-        float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-        std::cout << "Similarity: " << cosine_similarity << "\n";
+        //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
+        //std::cout << "Similarity: " << cosine_similarity << "\n";
         
-        score_board_->player_list_.at(0).score = calc_score(cosine_similarity);
-
         // Communication with the gui
         camera_image.copyTo(graphics->camera_image);
         video_image.copyTo(graphics->video_image);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }
 

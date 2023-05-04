@@ -5,8 +5,8 @@ namespace PoseEstimation {
 
 PoseDetector::PoseDetector()
 {
-    configureWrapper(op_wrapper_);
-    op_wrapper_.start();
+    //configureWrapper(op_wrapper_);
+    //op_wrapper_.start();
 }
 
 Pose PoseDetector::get_pose(const cv::Mat& image)
