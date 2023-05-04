@@ -9,11 +9,9 @@ class Camera : public Input
 public:
     Camera();
 
-    cv::Mat read() override;
+    cv::Mat read();
 
     void resize(const int width, const int height) override;
-
-    void change_color_space(const ColorSpace colorSpace) override;
 
     void change_device_id(int id);
 

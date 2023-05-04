@@ -11,13 +11,15 @@ Camera::Camera()
 
 cv::Mat Camera::read() 
 {
-    cv::Mat image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
-
-    if (!capture_.isOpened()) {
-        std::cerr << "Unable to open camera\n";
+    cv::Mat image;
+    bool success = capture_.read(image);
+    if (!success) {
+        image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
     }
 
-    capture_.read(image);
+    if (image.size().height != height_ || image.size().width != width_ && !image.empty()) {
+        cv::resize(image, image, cv::Size(width_, height_), cv::INTER_LINEAR);
+    }
     return image;
 }
 
@@ -25,11 +27,6 @@ void Camera::resize(const int width, const int height)
 {
     width_  = width;
     height_ = height;
-}
-
-void Camera::change_color_space(const ColorSpace colorSpace) 
-{
-
 }
 
 void Camera::change_device_id(int id)

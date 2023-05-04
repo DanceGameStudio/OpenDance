@@ -2,12 +2,7 @@
 
 namespace Interface {
 
-void GuiInterface::set_graphics(Graphics& graphics)
-{
-    graphics_ = graphics;
-}
-
-Graphics& GuiInterface::get_graphics()
+std::shared_ptr<Graphics> GuiInterface::get_graphics()
 {
     return graphics_;
 }
