@@ -8,8 +8,7 @@ namespace ScoreBoard {
 
 class ScoreBoard
 {
-
-private: 
+public:
 	std::vector<Player> player_list_;
 };
 }

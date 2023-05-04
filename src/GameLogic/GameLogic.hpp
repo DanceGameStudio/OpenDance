@@ -23,6 +23,8 @@ public:
 private:
     void load_configuration();
 
+    int calc_score(float similarity);
+
     std::shared_ptr<Interface::GuiInterface> interface_;
     std::unique_ptr<Graphics::Graphics> graphics_                = std::make_unique<Graphics::Graphics>();
     std::unique_ptr<Graphics::Graphics> graphics_test_           = std::make_unique<Graphics::Graphics>();
