@@ -25,11 +25,6 @@ void GameLogic::loop()
         graphics.video_image = video_image;
         graphics.camera_image = camera_image;
         interface_->set_graphics(graphics);
-
-        if (!video_image.empty()) { 
-            cv::imshow("video_image", video_image);
-            cv::waitKey(1);
-        }
     }
 
     graphics_->video_->stop();

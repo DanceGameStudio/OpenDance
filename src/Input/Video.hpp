@@ -33,7 +33,7 @@ private:
  
     int width_ = 640;
     int height_ = 480;
-    int fps_ = 10;
+    int fps_ = 60;
     bool running_ = false;
 };
 

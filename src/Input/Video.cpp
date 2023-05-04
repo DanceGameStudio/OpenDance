@@ -18,21 +18,7 @@ void Video::run()
         } else if (image_.size().height != height_ || image_.size().width != width_ && !image_.empty()) {
             cv::resize(image_, image_, cv::Size(width_, height_), cv::INTER_LINEAR);
         }
-        auto now = std::chrono::system_clock::now();
-        std::ostringstream oss;
-        oss << now;
-        std::string time = oss.str();
-
-        if (!image_.empty()) {
-            cv::putText(image_, // target image
-                time, // text
-                cv::Point(10, image_.rows / 2), // top-left position
-                cv::FONT_HERSHEY_DUPLEX,
-                1.0,
-                CV_RGB(118, 185, 0), // font color
-                2);
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / fps_));
     }
 }
 
