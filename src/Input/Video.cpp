@@ -9,19 +9,41 @@ Video::Video()
 {
 }
 
-cv::Mat Video::read() 
+void Video::run()
 {
-    cv::Mat image;
-    bool success = capture_.read(image);
-    if (!success) {
-        image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
+    while (running_) {
+        bool success = capture_.read(image_);
+        if (!success) {
+            image_ = cv::Mat(height_, width_, CV_8UC3, cv::Scalar(0, 0, 0));          
+        } else if (image_.size().height != height_ || image_.size().width != width_ && !image_.empty()) {
+            cv::resize(image_, image_, cv::Size(width_, height_), cv::INTER_LINEAR);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / fps_));
     }
-    
-    if (image.size().height != height_ || image.size().width != width_ && !image.empty()) {
-        cv::resize(image, image, cv::Size(width_, height_), cv::INTER_LINEAR);
-    }
-    return image;
 }
+
+void Video::start()
+{
+    running_ = true;
+    video_thread_ = std::thread([&]() {
+        run();
+    });
+}
+
+void Video::stop()
+{
+    running_ = false;
+    if (video_thread_.joinable()) {
+        video_thread_.join();
+    }
+}
+
+cv::Mat Video::get_image()
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return image_.clone();
+}
+
 
 void Video::resize(const int width, const int height)
 {
@@ -46,5 +68,4 @@ bool Video::connect()
     }
     return true;
 }
-
 }

@@ -11,10 +11,8 @@ int main([[maybe_used]] int argc, [[maybe_used]] char** argv)
     bool stopGame = false;
 
     std::thread thrd_game([&]() {
-        std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>(gui_interface);
-        while (!stopGame) {
-            game->loop();
-        }
+        std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>(intf);
+        game->loop();
     });
 
     std::thread thrd_gui([&]() {
