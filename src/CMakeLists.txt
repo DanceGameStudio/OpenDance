@@ -21,6 +21,8 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	${OpenCV_LIBS}
+    ${OPENPOSE_LIB_DIR}/openpose.lib
+    ${OPENPOSE_LIB_DIR}/openposed.lib
 	GameLogic-lib
     PUBLIC Interface-lib
     PUBLIC GUI-lib
