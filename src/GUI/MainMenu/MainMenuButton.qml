@@ -4,8 +4,7 @@ import QtQuick.Controls 1.4
 StyledButton {
 	id: root
 	
-	fontSize: 50
-
-	width: 400
-	height: 150
+	fontSize: sizes_buttonFont
+	width: sizes_buttonWidth
+	height: sizes_buttonHeight
 }

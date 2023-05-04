@@ -3,8 +3,8 @@ import QtQuick.Controls 1.4
 
 Rectangle {
 	id: root
-	width: 500 
-	height: 150
+	width: sizes_danceWidth
+	height: sizes_danceHeight
 	
 	color: "transparent"
 	/*

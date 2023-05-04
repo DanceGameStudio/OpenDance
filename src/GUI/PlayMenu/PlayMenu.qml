@@ -29,7 +29,40 @@ Rectangle {
 		ListElement { name: "14" }
 		ListElement { name: "15" }
 	}
+	
+	property int sizes_danceHeight: 100
+	property int sizes_danceWidth: 400
+	
+    PathView {
+		Rectangle {
+			anchors.fill: parent
+			color: "red"
+		}
 
+
+		id: dancesList
+		height: 300
+		anchors {
+			leftMargin: 0
+			left: parent.left
+			
+			rightMargin: anchors.leftMargin
+			right: parent.right
+
+			verticalCenter: parent.verticalCenter
+		}
+
+        model: nameModel
+        delegate: DancePreview { }
+        path: Path {
+            startX: -sizes_danceWidth/2; startY: 150
+            PathLine { x: dancesList.width/2; y: 50 }
+            PathLine { x: dancesList.width + sizes_danceWidth/2; y: 150 }
+            PathLine { x: (nameModel.count * (sizes_danceWidth+100)); y: 150 }
+        }
+    }
+
+	/*
 	ListView {
 		id: dancesList
 		model: nameModel
@@ -77,7 +110,7 @@ Rectangle {
 			dancesList.contentX = dancesList.contentWidth/2 + 250
 		}
 	}
-	
+	*/
 	
 	StyledButton {
 		id: playButton
