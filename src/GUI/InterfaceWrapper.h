@@ -16,7 +16,7 @@ public:
         : m_interface(intf)
     {
         QTimer* timer = new QTimer();
-        timer->setInterval(100);
+        timer->setInterval(33);
         QObject::connect(timer, &QTimer::timeout, [&]() {
             cv::Mat mat = m_interface->get_graphics()->camera_image;
             QImage img(mat.data, mat.cols, mat.rows, static_cast<int>(mat.step), QImage::Format_BGR888);
