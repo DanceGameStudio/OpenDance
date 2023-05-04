@@ -15,10 +15,10 @@ public:
 
     void start();
 
-    cv::Mat get_image();
+    void get_image(cv::Mat& image);
 
     void resize(const int width, const int height) override;
-
+  
     void change_video_path(std::string& path);
 
     bool connect() override;
