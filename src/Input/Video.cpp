@@ -9,36 +9,12 @@ Video::Video()
 {
 }
 
-void Video::run()
+void Video::read(cv::Mat& image)
 {
-    while (running_) {
-        cv::Mat image;
-        capture_.read(image);
-        std::lock_guard<std::mutex> lock(mutex_);
-        image.copyTo(image_);
-    }
-}
-
-void Video::start()
-{
-    running_ = true;
-    video_thread_ = std::thread([&]() {
-        run();
-    });
-}
-
-void Video::stop()
-{
-    running_ = false;
-    if (video_thread_.joinable()) {
-        video_thread_.join();
-    }
-}
-
-void Video::get_image(cv::Mat& image)
-{
-    std::lock_guard<std::mutex> lock(mutex_);
-    if (image_.empty()) {
+    bool success = capture_.read(image_);
+    if (!capture_.isOpened() || !success) {
+        connect();
+    } else if (image_.empty()) {
         image_ = cv::Mat(height_, width_, CV_8UC3, cv::Scalar(0, 0, 0));
     } else if (image_.size().height != height_ || image_.size().width != width_ && !image_.empty()) {
         cv::resize(image_, image_, cv::Size(width_, height_), cv::INTER_LINEAR);
@@ -63,9 +39,9 @@ void Video::change_video_path(std::string& path)
 
 bool Video::connect()
 {
-    capture_.open(video_path_);
     fps_ = capture_.get(cv::CAP_PROP_FRAME_COUNT);
     capture_.set(cv::CAP_PROP_FPS, fps_);
+    capture_.open(video_path_);
     if (!capture_.isOpened()) {
         return false;
     }

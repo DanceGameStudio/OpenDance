@@ -9,7 +9,7 @@ class Camera : public Input
 public:
     Camera();
 
-    cv::Mat read();
+    void read(cv::Mat& image);
 
     void resize(const int width, const int height) override;
 

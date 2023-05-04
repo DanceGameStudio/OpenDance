@@ -7,6 +7,7 @@ add_library(Graphics-lib STATIC
 
 target_link_libraries(Graphics-lib
 	PUBLIC Input-lib
+	PUBLIC Settings-lib
 )
 
 target_include_directories(Graphics-lib PUBLIC 

@@ -9,13 +9,7 @@ class Video : public Input
 public:
     Video();
 
-    void run();
-
-    void stop();
-
-    void start();
-
-    void get_image(cv::Mat& image);
+    void read(cv::Mat& image);
 
     void resize(const int width, const int height) override;
   
