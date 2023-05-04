@@ -4,20 +4,31 @@ namespace PoseEstimation {
 
 float PoseAnalyser::compare_poses(Pose& first_pose, Pose& second_pose)
 {
-    float result = 0;
-
     // Fill the map with all obtainable poses
     initialise_valid_poses(first_pose, second_pose);
 
+    // If we do not have any poses just return 0
+    if (cosine_similarities_.size() == 0)
+        return 0.f;
+
     // Compare all obtainable poses
-    if (cosine_similarities_.count(Poses::POSE_ARMS))
-        result += compare_arms(first_pose, second_pose);
-    if (cosine_similarities_.count(Poses::POSE_LEGS))
-        result += compare_legs(first_pose, second_pose);
-    if (cosine_similarities_.count(Poses::POSE_CHEST))
-        result += compare_chest(first_pose, second_pose);
-    if (cosine_similarities_.count(Poses::POSE_ARMS))
-        result += compare_head(first_pose, second_pose);
+    float result = 0;
+    if (cosine_similarities_.count(Poses::POSE_ARMS)) {
+        compare_arms(first_pose, second_pose);
+        result += cosine_similarities_[Poses::POSE_ARMS];
+    }
+    if (cosine_similarities_.count(Poses::POSE_LEGS)) {
+        compare_legs(first_pose, second_pose);
+        result += cosine_similarities_[Poses::POSE_LEGS];
+    }
+    if (cosine_similarities_.count(Poses::POSE_CHEST)) {
+        compare_chest(first_pose, second_pose);
+        result += cosine_similarities_[Poses::POSE_CHEST];
+    }
+    if (cosine_similarities_.count(Poses::POSE_HEAD)) {
+        compare_head(first_pose, second_pose);
+        result += cosine_similarities_[Poses::POSE_HEAD];
+    }
 
     // Divide the result by the number of obtained poses
     result /= cosine_similarities_.size();
@@ -53,7 +64,7 @@ void PoseAnalyser::initialise_valid_poses(Pose& first_pose, Pose& second_pose)
         cosine_similarities_.insert(std::make_pair(Poses::POSE_HEAD, 0.f));
 }
 
-float PoseAnalyser::compare_arms(Pose& first_pose, Pose& second_pose)
+void PoseAnalyser::compare_arms(Pose& first_pose, Pose& second_pose)
 {
     // Arm Keypoint Vectors are as follows:
     // Left - Upper Arm is 5 to 6 and Lower Arm is 6 to 7
@@ -84,10 +95,10 @@ float PoseAnalyser::compare_arms(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 4;
 
-    return result;
+    cosine_similarities_.insert(std::make_pair(Poses::POSE_ARMS, result));
 }
 
-float PoseAnalyser::compare_legs(Pose& first_pose, Pose& second_pose)
+void PoseAnalyser::compare_legs(Pose& first_pose, Pose& second_pose)
 {
     // Leg Keypoint Vectors are as follows:
     // Left - Upper Leg is 11 to 12 and Lower Leg is 12 to 13
@@ -118,10 +129,10 @@ float PoseAnalyser::compare_legs(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 4;
 
-    return result;
+    cosine_similarities_.insert(std::make_pair(Poses::POSE_LEGS, result));
 }
 
-float PoseAnalyser::compare_chest(Pose& first_pose, Pose& second_pose)
+void PoseAnalyser::compare_chest(Pose& first_pose, Pose& second_pose)
 {
     // Chest Keypoint Vectors are as follows:
     // Middle - 1 to 11 and 1 to 8
@@ -152,10 +163,10 @@ float PoseAnalyser::compare_chest(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 4;
 
-    return result;
+    cosine_similarities_.insert(std::make_pair(Poses::POSE_CHEST, result));
 }
 
-float PoseAnalyser::compare_head(Pose& first_pose, Pose& second_pose)
+void PoseAnalyser::compare_head(Pose& first_pose, Pose& second_pose)
 {
     // Head Keypoint Vectors are as follows:
     // Neck - 1 to 0
@@ -192,7 +203,7 @@ float PoseAnalyser::compare_head(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 5;
 
-    return result;
+    cosine_similarities_.insert(std::make_pair(Poses::POSE_HEAD, result));
 }
 
 Utility::Math::Vector3 PoseAnalyser::keypoints_to_vector3(Keypoint& start_keypoint, Keypoint& direction_keypoint)
