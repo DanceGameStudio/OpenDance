@@ -22,3 +22,4 @@
 /.vs
 /3rdparty
 /out/build/x64-Release
+/3rdparty/gflags-2.2.2/bin/.vs/gflags/v17/Browse.VC.db
