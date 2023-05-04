@@ -18,14 +18,16 @@ Rectangle {
 		width: 3
 	}
 	
+
     SoundEffect {
         id: soundClick
-        source: "ui-click.mp3"
+        //source: "ui-click.mp3"
     }
     SoundEffect {
         id: soundHover
-        source: "ui-hover.mp3"
+        //source: "ui-hover.mp3"
     }
+
 
 	Text {
 		id: label

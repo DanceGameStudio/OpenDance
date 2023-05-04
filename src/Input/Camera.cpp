@@ -5,18 +5,21 @@
 
 namespace Input {
 
+Camera::Camera()
+{
+}
+
 cv::Mat Camera::read() 
 {
-    cv::VideoCapture capture;
-    cv::Mat image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
-    int device_id = 0;
-    capture.open(device_id);
-    
-    if (!capture.isOpened()) {
-        std::cerr << "Unable to open camera\n";
+    cv::Mat image;
+    bool success = capture_.read(image);
+    if (!success) {
+        image = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
     }
 
-    capture.read(image);
+    if (image.size().height != height_ || image.size().width != width_ && !image.empty()) {
+        cv::resize(image, image, cv::Size(width_, height_), cv::INTER_LINEAR);
+    }
     return image;
 }
 
@@ -26,9 +29,22 @@ void Camera::resize(const int width, const int height)
     height_ = height;
 }
 
-void Camera::change_color_space(const ColorSpace colorSpace) 
+void Camera::change_device_id(int id)
 {
+    device_id_ = id;
+    bool connected = connect();
+    if (!connected) {
+        std::cerr << "Unable to open camera\n";
+    }
+}
 
+bool Camera::connect()
+{
+    capture_.open(device_id_);
+    if (!capture_.isOpened()) {
+        return false;
+    }
+    return true;
 }
 
 }

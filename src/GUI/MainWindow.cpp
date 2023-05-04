@@ -21,7 +21,7 @@ void GUI::run(int argc, char** argv)
     // Register Types
     qmlRegisterType<VideoStreamContent>("Game", 1, 0, "VideoStreamContent");
 
-    Interface::InterfaceWrapper intfWrap(*m_intf);
+    Interface::InterfaceWrapper intfWrap(m_intf);
     context->setContextProperty("intfWrap", &intfWrap);
 
     // Dances Model into Qml Context
