@@ -13,21 +13,29 @@ void GameLogic::loop()
     PoseEstimation::Pose camera_pose;
     PoseEstimation::Pose video_pose;
     auto graphics = interface_->get_graphics();
+    int fps = graphics_->get_video_fps();
+
 
     while (true) {
+        auto start_time = std::chrono::high_resolution_clock::now();
         camera_image = graphics_->get_camera_image();
         video_image  = graphics_->get_video_image();
 
+        camera_image.copyTo(graphics->camera_image);
+        video_image.copyTo(graphics->video_image);
+
+        auto end_time = std::chrono::high_resolution_clock::now();
+        auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+        int wait_time = 1000 / fps - time_diff.count();
+        if (wait_time > 0) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
+        }
         //camera_pose = pose_analyser_->detector_->get_pose(camera_image);
         //video_pose = pose_analyser_->detector_->get_pose(video_image);
 
         //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
         //std::cout << "Similarity: " << cosine_similarity << "\n";
         
-        // Communication with the gui
-        camera_image.copyTo(graphics->camera_image);
-        video_image.copyTo(graphics->video_image);
-        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
 

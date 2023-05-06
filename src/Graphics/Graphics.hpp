@@ -15,6 +15,8 @@ public:
 
     cv::Mat get_video_image();
 
+    int get_video_fps();
+
     void get_preprocessed();
 
     void flip_camera_image();

@@ -12,6 +12,8 @@ public:
     void read(cv::Mat& image);
 
     void resize(const int width, const int height) override;
+
+    int get_fps();
   
     void change_video_path(std::string& path);
 

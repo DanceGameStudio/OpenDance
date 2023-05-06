@@ -16,6 +16,11 @@ cv::Mat Graphics::get_video_image()
     return image;
 }
 
+int Graphics::get_video_fps()
+{
+    return video_->get_fps();
+}
+
 void Graphics::get_preprocessed()
 {
 
