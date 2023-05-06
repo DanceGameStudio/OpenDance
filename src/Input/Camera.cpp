@@ -15,8 +15,6 @@ void Camera::read(cv::Mat& image)
     bool success = capture_.read(image_);
     if (!success) {
         image_ = cv::Mat::zeros(cv::Size(width_, height_), CV_8UC4);
-    } else if (image_.size().height != height_ || image_.size().width != width_ && !image_.empty()) {
-        cv::resize(image_, image_, cv::Size(width_, height_), cv::INTER_LINEAR);
     }
     image_.copyTo(image);
 }
