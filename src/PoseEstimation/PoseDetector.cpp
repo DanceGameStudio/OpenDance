@@ -5,8 +5,8 @@ namespace PoseEstimation {
 
 PoseDetector::PoseDetector()
 {
-    //configureWrapper(op_wrapper_);
-    //op_wrapper_.start();
+    configureWrapper(op_wrapper_);
+    op_wrapper_.start();
 }
 
 Pose PoseDetector::get_pose(const cv::Mat& image)
@@ -88,7 +88,7 @@ void PoseDetector::configureWrapper(op::Wrapper& opWrapper)
         const op::WrapperStructOutput wrapperStructOutput {};
         opWrapper.configure(wrapperStructOutput);
     } catch (const std::exception& e) {
-        op::error(e.what(), __LINE__, __FUNCTION__, __FILE__);
+        std::cerr << "OpenPose failed to load Wrapper." << std::endl;
     }
 }
 }
