@@ -1,4 +1,5 @@
 #include <chrono>
+#include <openpose/wrapper/enumClasses.hpp>
 #include "PoseDetector.hpp"
 
 namespace PoseEstimation {
@@ -41,36 +42,13 @@ void PoseDetector::configureWrapper(op::Wrapper& opWrapper)
         op::ConfigureLog::setPriorityThreshold(op::Priority::Normal);
         op::Profiler::setDefaultX(1000);
 
-        // Applying user defined configuration - GFlags to program variables
-        // outputSize
-        const auto outputSize = op::flagsToPoint("-1x-1");
-        // netInputSize
-        const auto netInputSize = op::flagsToPoint("-1x368");
-        // faceNetInputSize
-        const auto faceNetInputSize = op::flagsToPoint("368x368 (multiples of 16)");
-        // handNetInputSize
-        const auto handNetInputSize = op::flagsToPoint("368x368 (multiples of 16)");
-        // poseMode
-        const auto poseMode = op::flagsToPoseMode(1);
-        // poseModel
-        const auto poseModel = op::flagsToPoseModel(op::String("COCO"));
-
-        // keypointScaleMode
-        const auto keypointScaleMode = op::flagsToScaleMode(0);
-        // heatmaps to add
-        const auto heatMapTypes = op::flagsToHeatMaps(false, false,
-            false);
-        const auto heatMapScaleMode = op::flagsToHeatMapScaleMode(2);
-        // >1 camera view?
-        const auto multipleView = false;
-        // Face and hand detectors
-        const auto faceDetector = op::flagsToDetector(0);
-        const auto handDetector = op::flagsToDetector(0);
-        // Enabling Google Logging
-        const bool enableGoogleLogging = true;
-
         // Pose configuration (use WrapperStructPose{} for default and recommended configuration)
-        const op::WrapperStructPose wrapper_struct_pose {};
+        op::WrapperStructPose wrapper_struct_pose;
+        wrapper_struct_pose.poseModel = op::PoseModel::COCO_18;
+        wrapper_struct_pose.numberPeopleMax = 1;
+        wrapper_struct_pose.modelFolder = "models/";
+        wrapper_struct_pose.protoTxtPath = "pose_deploy_linevec.prototxt";
+        wrapper_struct_pose.caffeModelPath = "pose_iter_440000.caffemodel";
 
         // TODO IMPLEMENT PROPER MODEL PATHS!!!
 
@@ -88,7 +66,7 @@ void PoseDetector::configureWrapper(op::Wrapper& opWrapper)
         const op::WrapperStructOutput wrapperStructOutput {};
         opWrapper.configure(wrapperStructOutput);
     } catch (const std::exception& e) {
-        std::cerr << "OpenPose failed to load Wrapper." << std::endl;
+        std::cerr << "OpenPose failed to load Wrapper. Exception: " << e.what() << std::endl;
     }
 }
 }
