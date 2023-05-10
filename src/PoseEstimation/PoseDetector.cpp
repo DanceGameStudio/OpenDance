@@ -21,17 +21,17 @@ Pose PoseDetector::get_pose(const cv::Mat& image)
 
 std::vector<Keypoint> PoseDetector::detect_keypoints(const cv::Mat& image)
 {
+    std::vector<Keypoint> detected_keypoints;
     auto datumProcessed = op_wrapper_.emplaceAndPop(OP_CV2OPCONSTMAT(image));
-
-    std::vector<Keypoint> de_keypoints;
-
-    if (datumProcessed != nullptr) {
+    if (datumProcessed != nullptr && !datumProcessed->empty()) {
+        op::Array<float> keypoints = datumProcessed->at(0)->poseKeypoints;
+        
+        for (int i = 0; i < keypoints.getSize().size(); i++) {
+            //Keypoint point = { keypoints.at(i), keypoints.at(i) };
+            //detected_keypoints.push_back(point);
+        }
     }
-    // for (auto pose_keypoint : datumProcessed->at(0)->poseKeypoints) {
-    //     //de_keypoints.push_back(pose_keypoint);
-    //     //Keypoint keypoint(pose_keypoint)
-    // }
-    return de_keypoints;
+    return detected_keypoints;
 }
 
 void PoseDetector::configureWrapper(op::Wrapper& opWrapper)

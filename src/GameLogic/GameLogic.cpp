@@ -32,7 +32,7 @@ void GameLogic::loop()
             std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
         }
         //camera_pose = pose_analyser_->detector_->get_pose(camera_image);
-        //video_pose = pose_analyser_->detector_->get_pose(video_image);
+        video_pose = pose_analyser_->detector_->get_pose(video_image);
 
         //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
         //std::cout << "Similarity: " << cosine_similarity << "\n";
