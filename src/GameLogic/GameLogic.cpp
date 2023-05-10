@@ -14,7 +14,8 @@ void GameLogic::loop()
     PoseEstimation::Pose video_pose;
     auto graphics = interface_->get_graphics();
     int fps = graphics_->get_video_fps();
-
+    ScoreBoard::Player player(std::chrono::system_clock::now());
+    int score = 0;
 
     while (true) {
         auto start_time = std::chrono::high_resolution_clock::now();
@@ -35,8 +36,9 @@ void GameLogic::loop()
 
         //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
         //std::cout << "Similarity: " << cosine_similarity << "\n";
-        
+        //player.score = calc_score(cosine_similarity);         
     }
+    score_board_->player_list_.push_back(player);
 }
 
 void GameLogic::load_configuration()
