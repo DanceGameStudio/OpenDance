@@ -25,4 +25,10 @@ struct ScoreBoard {
     std::vector<Player> player_list;
 };
 
+enum GameStatus {
+    Running,
+    Paused,
+    Stopped
+};
+
 }
