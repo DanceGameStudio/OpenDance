@@ -33,10 +33,10 @@ void GameLogic::loop()
         }
         //camera_pose = pose_analyser_->detector_->get_pose(camera_image);
         video_pose = pose_analyser_->detector_->get_pose(video_image);
-
+        float cosine_similarity = pose_analyser_->compare_poses(video_pose, video_pose);
         //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-        //std::cout << "Similarity: " << cosine_similarity << "\n";
-        //player.score = calc_score(cosine_similarity);         
+        std::cout << "Similarity: " << cosine_similarity << "\n";
+        player.score = calc_score(cosine_similarity);         
     }
     score_board_->player_list_.push_back(player);
 }

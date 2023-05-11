@@ -18,7 +18,7 @@ private:
 
     std::vector<Pose> poses_;
 
-    op::Wrapper op_wrapper_ { op::ThreadManagerMode::Asynchronous };
+    op::Wrapper op_wrapper_;
 
     bool wrapper_configured_ = false;
 

@@ -76,9 +76,8 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         ${CMAKE_CURRENT_BINARY_DIR}/video
 )
 
-# Copy OpenPose CPU_DLL
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-        ${OPENPOSE_CPU_DLL}
-        ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${FIND_LIB_PREFIX}/openpose/models/pose/coco
+        ${CMAKE_CURRENT_BINARY_DIR}/models
 )

@@ -46,34 +46,6 @@ std::vector<Keypoint> PoseDetector::detect_keypoints(const cv::Mat& image)
 void PoseDetector::configureWrapper(op::Wrapper& opWrapper)
 {
     try {
-        // Configuring OpenPose
-        // logging_level
-        op::ConfigureLog::setPriorityThreshold(op::Priority::Normal);
-        op::Profiler::setDefaultX(1000);
-
-        // Pose configuration (use WrapperStructPose{} for default and recommended configuration)
-        op::WrapperStructPose wrapper_struct_pose;
-        wrapper_struct_pose.poseModel = op::PoseModel::COCO_18;
-        wrapper_struct_pose.numberPeopleMax = 1;
-        wrapper_struct_pose.modelFolder = "models/";
-        wrapper_struct_pose.protoTxtPath = "pose_deploy_linevec.prototxt";
-        wrapper_struct_pose.caffeModelPath = "pose_iter_440000.caffemodel";
-
-        // TODO IMPLEMENT PROPER MODEL PATHS!!!
-
-        opWrapper.configure(wrapper_struct_pose);
-        // Face configuration (use op::WrapperStructFace{} to disable it)
-        const op::WrapperStructFace wrapperStructFace {};
-        opWrapper.configure(wrapperStructFace);
-        // Hand configuration (use op::WrapperStructHand{} to disable it)
-        const op::WrapperStructHand wrapperStructHand {};
-        opWrapper.configure(wrapperStructHand);
-        // Extra functionality configuration (use op::WrapperStructExtra{} to disable it)
-        const op::WrapperStructExtra wrapperStructExtra {};
-        opWrapper.configure(wrapperStructExtra);
-        // Output (comment or use default argument to disable any output)
-        const op::WrapperStructOutput wrapperStructOutput {};
-        opWrapper.configure(wrapperStructOutput);
         wrapper_configured_ = true;
     } catch (const std::exception& e) {
         wrapper_configured_ = false;
