@@ -43,7 +43,7 @@ void GameLogic::loop()
 
 void GameLogic::load_configuration()
 {
-    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "Beispiel_01.mp4";
+    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "Beispiel_03.mp4";
     settings_->set_video_path(current_path.string());
     graphics_->apply_settings(settings_);
 }

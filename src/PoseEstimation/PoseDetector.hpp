@@ -20,6 +20,8 @@ private:
 
     op::Wrapper op_wrapper_ { op::ThreadManagerMode::Asynchronous };
 
+    bool wrapper_configured_ = false;
+
     void configureWrapper(op::Wrapper& opWrapper);
 };
 }
