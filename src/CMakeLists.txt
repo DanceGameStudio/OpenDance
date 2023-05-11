@@ -42,10 +42,15 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
         ${OPENCV_DLL_DIR}/opencv_world470.dll
         ${OPENCV_DLL_DIR}/opencv_videoio_ffmpeg470_64.dll
         ${OPENCV_DLL_DIR}/opencv_videoio_msmf470_64.dll
-        ${OPENPOSE_DLL_DIR}/openpose.dll
     )
     set(OPENPOSE_DLLS
         ${OPENPOSE_DLL_DIR}
+    )
+    set(OPENPOSE_CPU_DLL
+        ${FIND_LIB_PREFIX}/openpose/cpu_only/openpose.dll    
+    )
+    set(OPENPOSE_CPU_LIB
+        ${FIND_LIB_PREFIX}/openpose/cpu_only/openpose.lib
     )
 endif()
 
@@ -67,8 +72,16 @@ foreach(DLL ${OPENPOSE_DLLS})
   )
 endforeach()
 
+# Copy Videos
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/video
         ${CMAKE_CURRENT_BINARY_DIR}/video
-  )
+)
+
+# Copy OpenPose CPU_DLL
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        ${OPENPOSE_CPU_DLL}
+        ${CMAKE_CURRENT_BINARY_DIR}
+)

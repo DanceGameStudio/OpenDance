@@ -14,4 +14,5 @@ target_include_directories(PoseEstimation-lib PUBLIC
 	${CMAKE_CURRENT_LIST_DIR}
 	${OpenCV_INCLUDE_DIRS}
 	${OPENPOSE_INCLUDE_DIRS}
+	${OPENPOSE_CPU_LIB}
 )
