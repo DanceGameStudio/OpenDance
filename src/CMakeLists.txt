@@ -46,9 +46,6 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(OPENPOSE_DLLS
         ${OPENPOSE_DLL_DIR}
     )
-    set(OPENPOSE_CPU_DLL
-        ${FIND_LIB_PREFIX}/openpose/cpu_only/openpose.dll    
-    )
     set(OPENPOSE_CPU_LIB
         ${FIND_LIB_PREFIX}/openpose/cpu_only/openpose.lib
     )
