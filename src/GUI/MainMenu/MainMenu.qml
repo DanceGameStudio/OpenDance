@@ -9,6 +9,10 @@ Rectangle {
 	signal openSettingsMenu
 	signal openCreditsMenu
 
+	property int sizes_buttonWidth: root.width*.3
+	property int sizes_buttonHeight: root.height*.1
+	property int sizes_buttonFont: (root.height + root.width)*.015
+
 	Item {
 		width: childrenRect.width
 		height: childrenRect.height
@@ -35,7 +39,7 @@ Rectangle {
 			
 			anchors {
 				top: buttonPlay.bottom
-				topMargin: 50
+				topMargin: sizes_spacing
 			}
 			
 			onClicked: root.openSettingsMenu()
@@ -47,12 +51,10 @@ Rectangle {
 
 			anchors {
 				top: buttonSettings.bottom
-				topMargin: 50
+				topMargin: sizes_spacing
 			}
 			
 			onClicked: root.openCreditsMenu()
 		}
-	}
-
-	
+	}	
 }

@@ -9,7 +9,10 @@
         <file alias="LandingScreen.qml">LandingScreen/LandingScreen.qml</file>
         <file alias="MainMenu.qml">MainMenu/MainMenu.qml</file>
         <file alias="PlayMenu.qml">PlayMenu/PlayMenu.qml</file>
-        <file alias="SettingsMenu.qml">SettingsMenu/SettingsMenu.qml</file>
+		<file alias="SettingsMenu.qml">SettingsMenu/SettingsMenu.qml</file>
+		<file alias="SettingsList.qml">SettingsMenu/SettingsList.qml</file>
+		<file alias="SettingCombox.qml">SettingsMenu/SettingCombox.qml</file>
+		<file alias="SettingContainer.qml">SettingsMenu/SettingContainer.qml</file>
         <file alias="MenuBackground.qml">MenuBackground/MenuBackground.qml</file>
         <file alias="MenuBackgroundParticle.qml">MenuBackground/MenuBackgroundParticle.qml</file>
         <file alias="GameScreen.qml">GameScreen/GameScreen.qml</file>

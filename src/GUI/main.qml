@@ -7,8 +7,12 @@ Window {
     visible: true
     title: qsTr("OpenDance")
     visibility: Qt.WindowFullScreen
-    flags: Qt.FramelessWindowHint | Qt.Window
+    //flags: Qt.FramelessWindowHint | Qt.Window
     color: "black"
+    
+    property int sizes_spacing: root.height*.05
+    property int sizes_titleWidth: root.width*.2
+    property int sizes_titleHeight: root.height*.1
 
     MenuBackground {
         id: menuBackground
@@ -44,7 +48,7 @@ Window {
     PlayMenu {
         id: playMenu
         anchors.fill: parent
-        visible: false
+        visible: true
 
         onGameSelected: { playMenu.visible = false; gameScreen.visible = true; }
     }

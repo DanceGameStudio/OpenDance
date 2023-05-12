@@ -1,6 +1,6 @@
 #include <QAbstractItemModel>
 
-class DancesModel : public QAbstractItemModel {
+class DancesModel : public QAbstractListModel {
     Q_OBJECT
 
 public:
@@ -13,18 +13,13 @@ public:
         ImageRole
     };
 
-    DancesModel(QObject* parent);
+    DancesModel(QObject* parent = nullptr);
 
-    QVariant data(const QModelIndex& index, int role);
+    QVariant data(const QModelIndex& index, int role) const;
 
     QHash<int, QByteArray> roleNames() const;
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const { return m_dances.size(); };
-    int columnCount(const QModelIndex& parent = QModelIndex()) const { return 0; };
-
-private slots:
-    void goLeft();
-    void goRight();
 
 private:
     QList<Dance> m_dances;

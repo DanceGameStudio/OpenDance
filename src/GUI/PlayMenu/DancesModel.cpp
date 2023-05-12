@@ -3,7 +3,9 @@
 #include <QVariant>
 
 DancesModel::DancesModel(QObject* parent)
-    : QAbstractItemModel(parent), m_dances() {
+    : QAbstractListModel(parent)
+    , m_dances()
+{
 
     m_dances.append(Dance { "Fortnite" });
     m_dances.append(Dance { "dawdawdaw" });
@@ -11,7 +13,8 @@ DancesModel::DancesModel(QObject* parent)
     m_dances.append(Dance { "tuuzt" });
 }
 
-QVariant DancesModel::data(const QModelIndex& index, int role) {
+QVariant DancesModel::data(const QModelIndex& index, int role) const
+{
     int idx = index.row();
 
     if (role == NameRole) {
@@ -26,12 +29,4 @@ QHash<int, QByteArray> DancesModel::roleNames() const {
     roles[NameRole] = "name";
     roles[ImageRole] = "image";
     return roles;
-}
-
-void DancesModel::goLeft() {
-
-}
-
-void DancesModel::goRight() {
-
 }

@@ -3,45 +3,15 @@ import QtQuick.Controls 1.4
 
 Rectangle {
 	id: root
-	width: 500 
-	height: 150
+	width: sizes_danceWidth
+	height: sizes_danceHeight
+	//opacity: PathView.opacity
+	scale: PathView.scale
 	
+	property int idx: 0
+	property bool isSelected: false
+
 	color: "transparent"
-	/*
-	color: "red"
-	border {
-		color: "green"
-		width: 3
-	}
-	*/
-
-	signal moveToMe
-	property bool isCenterItem
-	
-	NumberAnimation {
-		id: animW
-		properties: "width"
-		target: rect
-		running: false
-		duration: 200
-	}
-	NumberAnimation {
-		id: animH
-		properties: "height"
-		target: rect
-		running: false
-		duration: 200
-	}
-
-	onIsCenterItemChanged: {
-		animW.from = rect.width;
-		animW.to = isCenterItem ? 500 : 300;
-		animW.start();
-
-		animH.from = rect.height;
-		animH.to = isCenterItem ? 150 : 100;
-		animH.start();
-	}
 
 	Rectangle {
 		id: rect
@@ -76,9 +46,7 @@ Rectangle {
 
 		cursorShape: Qt.PointingHandCursorShape
 		onClicked: {
-			if (!isCenterItem) {
-				moveToMe()
-			}
+			view.setSelected(idx)
 		}
 	}
 	
