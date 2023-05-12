@@ -1,4 +1,5 @@
 #include <QAbstractItemModel>
+#include <QUrl>
 
 class DancesModel : public QAbstractListModel {
     Q_OBJECT
@@ -6,11 +7,13 @@ class DancesModel : public QAbstractListModel {
 public:
     struct Dance {
         QString name;
+        QString video;
+        //QUrl video;
     };
 
     enum DanceRoles {
         NameRole = Qt::UserRole + 1,
-        ImageRole
+        VideoRole
     };
 
     DancesModel(QObject* parent = nullptr);

@@ -47,6 +47,16 @@ public:
         connect(this, &InterfaceWrapper::videoStreamUpdated, stream, &VideoStreamContent::imageUpdated);
     }
 
+    
+    
+    Q_INVOKABLE void set_game_status(int status) {
+        m_interface->set_game_status((GameStatus)status);
+    };
+    Q_INVOKABLE int get_game_status() const
+    {
+        return m_interface->get_game_status();
+    };
+
 signals:
     void cameraStreamUpdated();
     void videoStreamUpdated();

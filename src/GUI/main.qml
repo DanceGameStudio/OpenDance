@@ -27,7 +27,16 @@ Window {
 
         anchors.fill: parent
 
-        visible: false
+        onOpenSettings: {
+            gameScreen.visible = false;
+            settingsMenu.visible = true;
+        }
+        onQuitGame: {
+            gameScreen.visible = false;
+            playMenu.visible = true;
+        }
+
+        visible: true
     }
 
     MainMenu {
@@ -48,7 +57,7 @@ Window {
     PlayMenu {
         id: playMenu
         anchors.fill: parent
-        visible: true
+        visible: false
 
         onGameSelected: { playMenu.visible = false; gameScreen.visible = true; }
     }
@@ -57,6 +66,14 @@ Window {
         id: settingsMenu
         anchors.fill: parent
         visible: false
+        
+	    onVisibleChanged: {
+		    if (!visible) { // if the game is just paused and not stopped, resume to game screen
+			    if (c_gameInterface.get_game_status() == 1) {
+                    gameScreen.visible = true;
+                }
+		    }
+	    }
     }
 
     CreditsMenu {

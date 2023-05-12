@@ -4,6 +4,15 @@ import QtQuick.Controls 1.4
 Rectangle {
 	id: root
 	color: "transparent"
+	
+    focus: true
+	Keys.onEscapePressed: {
+		pauseMenu.visible = !pauseMenu.visible
+		c_gameInterface.set_game_status(pauseMenu.visible ? 1 : 0);
+	}
+
+	signal quitGame
+	signal openSettings
 
 	Item {
 		id: container
@@ -21,7 +30,7 @@ Rectangle {
 			}
 
 			Component.onCompleted: {
-				intfWrap.connectVideo(streamBig.content)
+				c_gameInterface.connectVideo(streamBig.content)
 			}
 		}
 
@@ -40,8 +49,16 @@ Rectangle {
 			}
 
 			Component.onCompleted: {
-				intfWrap.connectCamera(streamSmall.content)
+				c_gameInterface.connectCamera(streamSmall.content)
 			}
 		}
+	}
+
+	PauseMenu {
+		id: pauseMenu
+		visible: true
+
+		onQuitGame: root.quitGame()
+		onOpenSettings: root.openSettings()
 	}
 }

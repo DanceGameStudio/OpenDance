@@ -10,30 +10,8 @@ Rectangle {
 	}
 
 	signal gameSelected
-
-	ListModel {
-		id: nameModel
-		ListElement { name: "1" }
-		ListElement { name: "2" }
-		ListElement { name: "3" }
-		ListElement { name: "4" }
-		ListElement { name: "5" }
-		ListElement { name: "6" }
-		/*
-		ListElement { name: "7" }
-		ListElement { name: "8" }
-		ListElement { name: "9" }
-		ListElement { name: "10" }
-		ListElement { name: "11" }
-		ListElement { name: "12" }
-		ListElement { name: "13" }
-		ListElement { name: "14" }
-		ListElement { name: "15" }
-		*/
-	}
-	
-	property int sizes_danceHeight: 100
-	property int sizes_danceWidth: 400
+	property int sizes_danceHeight: 150
+	property int sizes_danceWidth: 250
 	
     PathView {
 		id: dancesView
@@ -48,9 +26,6 @@ Rectangle {
 			verticalCenter: parent.verticalCenter
 		}
 
-		Component.onCompleted: {
-			console.log(c_dancesModel, c_dancesModel.count)
-		}
         model: c_dancesModel
 
         delegate: DancePreview {
@@ -78,8 +53,25 @@ Rectangle {
 		function setSelected(idx) {
 			dancesView.currentIndex = idx - 2
 		}
+
+		MouseArea {
+			anchors.fill: parent
+			hoverEnabled: true
+			onWheel: {
+				wheel.accepted = true;
+				if (wheel.angleDelta.y > 0) {
+					dancesView.decrementCurrentIndex();
+				} else {
+					dancesView.incrementCurrentIndex();
+				}
+			}
+		}
     }
 	
+	BackButton {
+		id: btnBack
+	}
+
 	StyledButton {
 		id: playButton
 
@@ -89,13 +81,12 @@ Rectangle {
 		width: root.width * .2
 		height: root.height * .1
 		anchors {
-			top: dancesView.bottom
-			topMargin: 50
+			//top: dancesView.bottom
+			//topMargin: 50
+			bottom: btnBack.bottom
 			horizontalCenter: parent.horizontalCenter
 		}
 
 		onClicked: root.gameSelected()
 	}
-
-	BackButton {}
 }
