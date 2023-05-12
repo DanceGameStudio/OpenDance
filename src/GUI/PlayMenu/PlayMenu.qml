@@ -19,6 +19,7 @@ Rectangle {
 		ListElement { name: "4" }
 		ListElement { name: "5" }
 		ListElement { name: "6" }
+		/*
 		ListElement { name: "7" }
 		ListElement { name: "8" }
 		ListElement { name: "9" }
@@ -28,19 +29,14 @@ Rectangle {
 		ListElement { name: "13" }
 		ListElement { name: "14" }
 		ListElement { name: "15" }
+		*/
 	}
 	
 	property int sizes_danceHeight: 100
 	property int sizes_danceWidth: 400
 	
     PathView {
-		Rectangle {
-			anchors.fill: parent
-			color: "red"
-		}
-
-
-		id: dancesList
+		id: dancesView
 		height: 300
 		anchors {
 			leftMargin: 0
@@ -52,65 +48,37 @@ Rectangle {
 			verticalCenter: parent.verticalCenter
 		}
 
-        model: nameModel
-        delegate: DancePreview { }
+		Component.onCompleted: {
+			console.log(c_dancesModel, c_dancesModel.count)
+		}
+        model: c_dancesModel
+
+        delegate: DancePreview {
+			property PathView view: dancesView
+			idx: index
+			isSelected: dancesView.currentIndex == idx-2
+		}
         path: Path {
             startX: -sizes_danceWidth/2; startY: 150
-            PathLine { x: dancesList.width/2; y: 50 }
-            PathLine { x: dancesList.width + sizes_danceWidth/2; y: 150 }
-            PathLine { x: (nameModel.count * (sizes_danceWidth+100)); y: 150 }
-        }
-    }
-
-	/*
-	ListView {
-		id: dancesList
-		model: nameModel
-		orientation: ListView.Horizontal
-		clip: true
-
-		property DancePreview centerItem;
-		onContentXChanged: {
-			dancesList.centerItem = itemAt(contentX + width/2,height/2)
-		}
-
-		height: 150
-		anchors {
-			leftMargin: 50
-			left: parent.left
 			
-			rightMargin: anchors.leftMargin
-			right: parent.right
+			PathPercent { value: 0 }
 
-			verticalCenter: parent.verticalCenter
-		}
-		
-        NumberAnimation {
-			id: anim
-			properties: "contentX"
-			target: dancesList
-			running: false
-			from: 100
-			duration: 200
+            PathAttribute { name: "scale"; value: 1 }
+			PathLine { x: dancesView.width/2; y: sizes_danceHeight/2*1.5 }
+			PathPercent { value: 4/2/dancesView.count }
+			
+            PathAttribute { name: "scale"; value: 1.5 }
+			PathLine { x: dancesView.width + sizes_danceWidth/2; y: sizes_danceHeight }
+			PathPercent { value: 4/dancesView.count }
+						
+			PathLine { x: dancesView.width + sizes_danceWidth; y: sizes_danceHeight }
+			PathPercent { value: 1 }
 		}
 
-		delegate: DancePreview {
-			id: prev
-
-			onMoveToMe: {
-				anim.from = dancesList.contentX;
-				anim.to = prev.x - (dancesList.width/2) + 250;
-				anim.start();
-			}
-
-			isCenterItem: dancesList.centerItem == prev
+		function setSelected(idx) {
+			dancesView.currentIndex = idx - 2
 		}
-		
-		Component.onCompleted: {
-			dancesList.contentX = dancesList.contentWidth/2 + 250
-		}
-	}
-	*/
+    }
 	
 	StyledButton {
 		id: playButton
@@ -121,7 +89,7 @@ Rectangle {
 		width: root.width * .2
 		height: root.height * .1
 		anchors {
-			top: dancesList.bottom
+			top: dancesView.bottom
 			topMargin: 50
 			horizontalCenter: parent.horizontalCenter
 		}

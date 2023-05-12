@@ -14,8 +14,6 @@ add_library(${LIB_NAME} STATIC
     GameScreen/VideoStreamContent.h
     PlayMenu/DancesModel.cpp
     PlayMenu/DancesModel.h
-    PlayMenu/DancePreviewView.cpp
-    PlayMenu/DancePreviewView.h
     ${RCC_RESOURCES}
 )
 
