@@ -3,7 +3,10 @@ find_package(Qt5 COMPONENTS Core Quick Widgets REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
 find_package(Qt5MultimediaWidgets REQUIRED)
 
-include_directories(${OpenCV_INCLUDE_DIRS})
+include_directories(
+    ${OpenCV_INCLUDE_DIRS}
+    ${PYTHON_INCLUDE_DIRS}
+)
 
 add_subdirectory(Interfaces)
 add_subdirectory(Utility)
@@ -21,6 +24,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	${OpenCV_LIBS}
+    ${PYTHON_LIBRARIES}
 	GameLogic-lib
     PUBLIC Interface-lib
     PUBLIC GUI-lib
@@ -54,4 +58,10 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/video
         ${CMAKE_CURRENT_BINARY_DIR}/video
+)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        ${PYTHON_LIBRARIES}
+        ${CMAKE_CURRENT_BINARY_DIR}
 )

@@ -2,7 +2,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
 #include <pybind11/numpy.h>
-#include "Python.h"
+#include <Python.h>
 #include "PoseDetector.hpp"
 
 namespace py = pybind11;
@@ -12,6 +12,7 @@ namespace PoseEstimation {
 const std::string pose_detection = R"(
 import traceback
 import sys
+print("Python-Version:", sys.version_info.major, ".", sys.version_info.minor)
 try:
     import numpy as np
     import cv2
@@ -43,9 +44,9 @@ Pose PoseDetector::get_pose(const cv::Mat& image)
 
 std::vector<Keypoint> PoseDetector::detect_keypoints(const cv::Mat& image)
 {
-    py::scoped_interpreter guard {};
     std::vector<Keypoint> keypoints;
-    // Import module and function
+    py::scoped_interpreter guard {};
+
     py::object globals = py::globals();
     py::object locals = py::dict();
     try {
@@ -62,8 +63,8 @@ std::vector<Keypoint> PoseDetector::detect_keypoints(const cv::Mat& image)
         // for (size_t i = 0; i < buffer.shape(0); i++) {
         //     keypoints.push_back({ ptr[3 * i], ptr[3 * i + 1], ptr[3 * i + 2] });
         // }
-    } catch (...) {
-        std::cout << "Pyhton failed!" << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "Pyhton failed: " << e.what() << std::endl;
     }
     return keypoints;
 }
