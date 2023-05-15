@@ -5,9 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(FIND_LIB_PREFIX ${CMAKE_SOURCE_DIR}/3rdparty/)
-set(OPENPOSE_INCLUDE_DIRS ${FIND_LIB_PREFIX}/openpose/include)
-set(OPENPOSE_DLL_DIR ${FIND_LIB_PREFIX}/openpose/cpu_only)
-set(OPENPOSE_LIB_DIR ${FIND_LIB_PREFIX}/openpose/lib)
 set(OpenCV_DIR ${FIND_LIB_PREFIX}/opencv-4.7.0/build)
 set(OPENCV_DLL_DIR ${FIND_LIB_PREFIX}/opencv-4.7.0/build/x64/vc16/bin)
 
@@ -16,4 +13,5 @@ project (${PROJECT_NAME}
 	LANGUAGES CXX
 )
 
+add_subdirectory(3rdparty/pybind11)
 add_subdirectory(src)
