@@ -12,7 +12,7 @@ void GameLogic::loop()
     cv::Mat camera_image;
     PoseEstimation::Pose camera_pose;
     PoseEstimation::Pose video_pose;
-    auto graphics = interface_->get_graphics();
+    auto interface_graphics = interface_->get_graphics();
     int fps = graphics_->get_video_fps();
     ScoreBoard::Player player(std::chrono::system_clock::now());
     int score = 0;
@@ -21,10 +21,11 @@ void GameLogic::loop()
         auto start_time = std::chrono::high_resolution_clock::now();
         camera_image = graphics_->get_camera_image();
         video_image  = graphics_->get_video_image();
-    
-        camera_image.copyTo(graphics->camera_image);
-        video_image.copyTo(graphics->video_image);
-
+   
+        cv::Mat image = graphics_->draw_keypoints_to_image(video_image, video_pose.keypoints);
+        camera_image.copyTo(interface_graphics->camera_image);
+        video_image.copyTo(interface_graphics->video_image);
+ 
         auto end_time = std::chrono::high_resolution_clock::now();
         auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
         int wait_time = 1000 / fps - time_diff.count();
@@ -32,14 +33,13 @@ void GameLogic::loop()
             std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
         }
         //camera_pose = pose_analyser_->detector_->get_pose(camera_image);
-   
+
+        // Berechne die Dauer in Nanosekunden
         auto startTime = std::chrono::high_resolution_clock::now();
 
         video_pose = pose_analyser_->detector_->get_pose(video_image);
 
         auto endTime = std::chrono::high_resolution_clock::now();
-
-        // Berechne die Dauer in Nanosekunden
         auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count();
 
         // Ausgabe der gemessenen Zeit in Millisekunden
