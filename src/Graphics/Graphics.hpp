@@ -23,6 +23,8 @@ public:
 
     void apply_settings(std::unique_ptr<Settings::Settings>& settings);
 
+    cv::Mat& draw_keypoints_to_image(cv::Mat& image, const std::vector<PoseEstimation::Keypoint>& keypoints);
+
 private:
     std::unique_ptr<VisualFX> visual_fx_   = std::make_unique<VisualFX>();
     std::unique_ptr<Input::Camera> camera_ = std::make_unique<Input::Camera>();

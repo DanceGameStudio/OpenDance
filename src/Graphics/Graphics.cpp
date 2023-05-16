@@ -31,6 +31,12 @@ void Graphics::flip_camera_image()
 
 }
 
+cv::Mat& Graphics::draw_keypoints_to_image(cv::Mat& image, const std::vector<PoseEstimation::Keypoint>& keypoints)
+{
+    visual_fx_->draw_keypoints(image, keypoints);
+    return image;
+}
+
 void Graphics::apply_settings(std::unique_ptr<Settings::Settings>& settings)
 {
     camera_->change_device_id(settings->get_camera_id());

@@ -21,7 +21,7 @@ void GameLogic::loop()
         auto start_time = std::chrono::high_resolution_clock::now();
         camera_image = graphics_->get_camera_image();
         video_image  = graphics_->get_video_image();
-
+    
         camera_image.copyTo(graphics->camera_image);
         video_image.copyTo(graphics->video_image);
 
@@ -32,7 +32,18 @@ void GameLogic::loop()
             std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
         }
         //camera_pose = pose_analyser_->detector_->get_pose(camera_image);
+   
+        auto startTime = std::chrono::high_resolution_clock::now();
+
         video_pose = pose_analyser_->detector_->get_pose(video_image);
+
+        auto endTime = std::chrono::high_resolution_clock::now();
+
+        // Berechne die Dauer in Nanosekunden
+        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count();
+
+        // Ausgabe der gemessenen Zeit in Millisekunden
+        std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
         float cosine_similarity = pose_analyser_->compare_poses(video_pose, video_pose);
         //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
         std::cout << "Similarity: " << cosine_similarity << "\n";
