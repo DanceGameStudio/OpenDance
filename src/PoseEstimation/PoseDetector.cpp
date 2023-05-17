@@ -14,14 +14,15 @@ try:
     import cv2
     import numpy as np
     import mediapipe as mp
+    
+    pose = mp.solutions.pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5, model_complexity=0)
 except:
     print(f"Ein Fehler ist aufgetreten: {e}")
 print("cv2, numpy und Mediapipe importiert")
 
 def detect_pose(image):
-    global mp, np, cv2
-    with mp.solutions.pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5, static_image_mode=True, enable_segmentation=False, model_complexity=1) as pose:
-        results = pose.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    global mp, np, cv2, pose
+    results = pose.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     keypoints = []
     if results.pose_landmarks is not None:
         for landmark in results.pose_landmarks.landmark:
