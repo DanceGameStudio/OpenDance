@@ -5,8 +5,7 @@
 #include "GameScreen/VideoStreamContent.h"
 #include "../Interfaces/GuiInterface.hpp"
 #include "InterfaceWrapper.h"
-
-//#include "PlayMenu/DancesModel.h"
+#include "PlayMenu/DancesModel.h"
 
 void GUI::run(int argc, char** argv)
 {
@@ -20,17 +19,14 @@ void GUI::run(int argc, char** argv)
 
     // Register Types
     qmlRegisterType<VideoStreamContent>("Game", 1, 0, "VideoStreamContent");
+    //qmlRegisterType<Interface::InterfaceWrapper>("Game", 1, 0, "InterfaceWrapper");
 
     Interface::InterfaceWrapper intfWrap(m_intf);
-    context->setContextProperty("intfWrap", &intfWrap);
+    context->setContextProperty("c_gameInterface", &intfWrap);
 
     // Dances Model into Qml Context
-    // DancesModel dancesModel();
-    /*
-    DancesModel dancesModel = new DancesModel();
-    QQmlContext* context = engine.rootContext(); // view is the QDeclarativeView
-    context->setContextProperty("_rosterItemModel", dancesModel);
-    */
+    DancesModel dancesModel;
+    context->setContextProperty("c_dancesModel", &dancesModel);
 
     // Build UI
     const QUrl url(QStringLiteral("qrc:/main.qml"));

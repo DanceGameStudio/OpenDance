@@ -1,71 +1,78 @@
 import QtQuick 2.15
 import QtQuick.Controls 1.4
+import QtMultimedia 5.15
 
 Rectangle {
 	id: root
-	width: 500 
-	height: 150
-	
-	color: "transparent"
+	width: sizes_danceWidth
+	height: sizes_danceHeight
+	//opacity: PathView.opacity
+	scale: PathView.scale
+
 	/*
-	color: "red"
+	color: Qt.rgba(.2, .2, .2, .9)
 	border {
-		color: "green"
-		width: 3
+		width: 2
+		color: Qt.rgba(.8, .8, .8, 1)
 	}
 	*/
-
-	signal moveToMe
-	property bool isCenterItem
+	color: "transparent"
 	
-	NumberAnimation {
-		id: animW
-		properties: "width"
-		target: rect
-		running: false
-		duration: 200
-	}
-	NumberAnimation {
-		id: animH
-		properties: "height"
-		target: rect
-		running: false
-		duration: 200
-	}
+	property int idx: 0
+	property bool isSelected: false
 
-	onIsCenterItemChanged: {
-		animW.from = rect.width;
-		animW.to = isCenterItem ? 500 : 300;
-		animW.start();
-
-		animH.from = rect.height;
-		animH.to = isCenterItem ? 150 : 100;
-		animH.start();
+	onIsSelectedChanged: {
+		if (isSelected) {
+			player.play();
+		} else {
+			player.pause();
+		}
+	}
+	
+	Text {
+		anchors {
+			horizontalCenter: parent.horizontalCenter
+			top: parent.top
+			topMargin: 5
+		}
+		font.pixelSize: 20
+		color: "white"
+		text: model.name
+		horizontalAlignment: Text.AlignHCenter
+		verticalAlignment: Text.AlignVCenter
 	}
 
 	Rectangle {
 		id: rect
-		color: "grey"
-		width: 300
-		height: 100
+
+		color: "transparent"
 
 		anchors {
-			verticalCenter: parent.verticalCenter
-			horizontalCenter: parent.horizontalCenter
-		}
-			
-		Text {
-			anchors.fill: parent
-			font.pixelSize: 30
-			color: "white"
-			text: model.name
-			horizontalAlignment: Text.AlignHCenter
-			verticalAlignment: Text.AlignVCenter
+			top: parent.top
+			topMargin: 35
+			bottom: parent.bottom
+			bottomMargin: 5
+			left: parent.left
+			right: parent.right
 		}
 
-		border {
-			color: "darkgrey"
-			width: 5
+		MediaPlayer {
+			id: player
+			source: model.video
+			autoPlay: false
+			loops: MediaPlayer.Infinite
+		}
+
+		VideoOutput {
+			id: videoOutput
+			source: player
+			//anchors.fill: parent
+			anchors {
+				left: parent.left
+				right: parent.right
+				top: parent.top
+				bottom: parent.bottom
+			}
 		}
 	}
 
@@ -76,10 +83,7 @@ Rectangle {
 
 		cursorShape: Qt.PointingHandCursorShape
 		onClicked: {
-			if (!isCenterItem) {
-				moveToMe()
-			}
+			view.setSelected(idx)
 		}
-	}
-	
+	}	
 }

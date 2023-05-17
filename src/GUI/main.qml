@@ -7,8 +7,12 @@ Window {
     visible: true
     title: qsTr("OpenDance")
     visibility: Qt.WindowFullScreen
-    flags: Qt.FramelessWindowHint | Qt.Window
+    //flags: Qt.FramelessWindowHint | Qt.Window
     color: "black"
+    
+    property int sizes_spacing: root.height*.05
+    property int sizes_titleWidth: root.width*.2
+    property int sizes_titleHeight: root.height*.1
 
     MenuBackground {
         id: menuBackground
@@ -23,7 +27,16 @@ Window {
 
         anchors.fill: parent
 
-        visible: false
+        onOpenSettings: {
+            gameScreen.visible = false;
+            settingsMenu.visible = true;
+        }
+        onQuitGame: {
+            gameScreen.visible = false;
+            playMenu.visible = true;
+        }
+
+        visible: true
     }
 
     MainMenu {
@@ -53,6 +66,14 @@ Window {
         id: settingsMenu
         anchors.fill: parent
         visible: false
+        
+	    onVisibleChanged: {
+		    if (!visible) { // if the game is just paused and not stopped, resume to game screen
+			    if (c_gameInterface.get_game_status() == 1) {
+                    gameScreen.visible = true;
+                }
+		    }
+	    }
     }
 
     CreditsMenu {

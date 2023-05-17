@@ -20,6 +20,11 @@ void Video::read(cv::Mat& image)
     image_.copyTo(image);
 }
 
+int Video::get_fps()
+{
+    return fps_;
+}
+
 void Video::resize(const int width, const int height)
 {
     width_ = width;

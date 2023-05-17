@@ -6,6 +6,7 @@ Rectangle {
 	color: "transparent"
 	
 	MenuTitle {
+		id: title
 		text: "Settings"
 	}
 		
@@ -27,6 +28,23 @@ Rectangle {
 		onClicked: root.visible = false
 	}
 
-	BackButton {}
+	SettingsList {
+		id: list
 
+		anchors {
+			top: title.bottom
+			topMargin: 50
+
+			bottom: backButton.top
+			bottomMargin: 50
+
+			left: root.left
+			leftMargin: 50
+
+			right: root.right
+			rightMargin: 50
+		}
+	}
+
+	BackButton {}
 }

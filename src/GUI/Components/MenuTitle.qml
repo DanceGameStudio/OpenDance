@@ -5,29 +5,30 @@ import QtQuick.Shapes 1.4
 Shape {
 	id: root
 
-	//property string text;
 	property alias text: label.text;
 
 	anchors {
 		top: parent.top
-		topMargin: 50
+		topMargin: sizes_spacing
 			
 		horizontalCenter: parent.horizontalCenter
 	}
 
-	width: 400
-	height: 100
+	width: sizes_titleWidth
+	height: sizes_titleHeight
+
+	property int sizes_offset: height/2
 
 	ShapePath {
 		fillColor: Qt.rgba(.2, .2, .2, .9)
 		strokeWidth: 3
 		strokeColor: Qt.rgba(.8, .8, .8, 1)
 
-		startX: 50; startY: 0
+		startX: sizes_offset; startY: 0
 		PathLine { x: root.width; y: 0 }
-		PathLine { x: root.width-50; y: root.height }
+		PathLine { x: root.width-sizes_offset; y: root.height }
 		PathLine { x: 0; y: root.height }
-		PathLine { x: 50; y: 0 }
+		PathLine { x: sizes_offset; y: 0 }
 	}
 
 	Label {
@@ -35,7 +36,7 @@ Shape {
 
 		color: "white"
 		font {
-			pixelSize: 30
+			pixelSize: root.width*.1
 		}
 
 		anchors {

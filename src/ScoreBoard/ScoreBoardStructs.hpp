@@ -5,8 +5,10 @@ namespace ScoreBoard {
 
 struct Player 
 {
+    Player(std::chrono::system_clock::time_point time) : timestamp(time) {}
+    
     std::string name;
     int score;
-    const std::chrono::steady_clock::time_point timestamp;
+    const std::chrono::system_clock::time_point timestamp;
 };
 }

@@ -16,6 +16,11 @@ cv::Mat Graphics::get_video_image()
     return image;
 }
 
+int Graphics::get_video_fps()
+{
+    return video_->get_fps();
+}
+
 void Graphics::get_preprocessed()
 {
 
@@ -24,6 +29,16 @@ void Graphics::get_preprocessed()
 void Graphics::flip_camera_image()
 {
 
+}
+
+cv::Mat Graphics::draw_keypoints_to_image(cv::Mat& image, const std::vector<PoseEstimation::Keypoint>& keypoints)
+{
+    cv::Mat landmark_image = image.clone();
+    for (const auto& keypoint : keypoints) {
+        cv::Point2f point(keypoint.x * landmark_image.rows, keypoint.y * landmark_image.cols);
+        cv::circle(landmark_image, point, 2, cv::Scalar(0, 255, 0), cv::FILLED);
+    }
+    return landmark_image;
 }
 
 void Graphics::apply_settings(std::unique_ptr<Settings::Settings>& settings)
