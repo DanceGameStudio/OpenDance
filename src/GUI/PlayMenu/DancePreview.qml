@@ -2,6 +2,9 @@ import QtQuick 2.15
 import QtQuick.Controls 1.4
 import QtMultimedia 5.15
 
+
+// https://www.codecguide.com/download_kl.htm
+
 Rectangle {
 	id: root
 	width: sizes_danceWidth
