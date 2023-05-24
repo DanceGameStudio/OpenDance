@@ -23,3 +23,6 @@
 
 /out/build/x64-Release
 
+/3rdparty/openpose
+/3rdparty/opencv-4.7.0/build/x64/vc16/bin
+/3rdparty/gflags-2.2.2/bin
