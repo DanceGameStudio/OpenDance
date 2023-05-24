@@ -16,37 +16,47 @@ void GameLogic::loop()
     int fps = graphics_->get_video_fps();
     ScoreBoard::Player player(std::chrono::system_clock::now());
     int score = 0;
-
+    bool run_game = false;
+    
     while (true) {
-        auto start_time = std::chrono::high_resolution_clock::now();
-        camera_image = graphics_->get_camera_image();
-        video_image  = graphics_->get_video_image();
-   
-        cv::Mat image = graphics_->draw_keypoints_to_image(video_image, video_pose.keypoints);
-        camera_image.copyTo(interface_graphics->camera_image);
-        video_image.copyTo(interface_graphics->video_image);
- 
-        auto pose_start = std::chrono::high_resolution_clock::now();
-        video_pose = pose_analyser_->detector_->get_pose(video_image);
-        camera_pose = pose_analyser_->detector_->get_pose(camera_image);
-        auto pose_end = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(pose_end - pose_start).count();
-
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-        int wait_time = 1000 / fps - time_diff.count();
-        if (wait_time > 0) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
+        if (interface_->get_game_status() == Interface::Running) {
+            run_game = true;
         }
+        while (run_game) {
+            if (interface_->get_game_status() != Interface::Running) {
+                run_game = false;
+                break;
+            }
+            auto start_time = std::chrono::high_resolution_clock::now();
+            camera_image = graphics_->get_camera_image();
+            video_image = graphics_->get_video_image();
 
-        // Ausgabe der gemessenen Zeit in Millisekunden
-        std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
-        float cosine_similarity = pose_analyser_->compare_poses(video_pose, video_pose);
-        //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-        std::cout << "Similarity: " << cosine_similarity << "\n";
-        player.score = calc_score(cosine_similarity); 
+            cv::Mat image = graphics_->draw_keypoints_to_image(video_image, video_pose.keypoints);
+            camera_image.copyTo(interface_graphics->camera_image);
+            video_image.copyTo(interface_graphics->video_image);
+
+            auto pose_start = std::chrono::high_resolution_clock::now();
+            video_pose = pose_analyser_->detector_->get_pose(video_image);
+            camera_pose = pose_analyser_->detector_->get_pose(camera_image);
+            auto pose_end = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(pose_end - pose_start).count();
+
+            auto end_time = std::chrono::high_resolution_clock::now();
+            auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+            int wait_time = 1000 / fps - time_diff.count();
+            if (wait_time > 0) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
+            }
+
+            // Ausgabe der gemessenen Zeit in Millisekunden
+            std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
+            float cosine_similarity = pose_analyser_->compare_poses(video_pose, video_pose);
+            // float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
+            std::cout << "Similarity: " << cosine_similarity << "\n";
+            player.score = calc_score(cosine_similarity);
+        }
+        score_board_->player_list_.push_back(player);
     }
-    score_board_->player_list_.push_back(player);
 }
 
 void GameLogic::load_configuration()
