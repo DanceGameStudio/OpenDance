@@ -31,15 +31,15 @@ void GameLogic::loop()
             camera_image = graphics_->get_camera_image();
             video_image = graphics_->get_video_image();
 
-            cv::Mat image = graphics_->draw_keypoints_to_image(video_image, video_pose.keypoints);
-            camera_image.copyTo(interface_graphics->camera_image);
-            video_image.copyTo(interface_graphics->video_image);
-
             auto pose_start = std::chrono::high_resolution_clock::now();
             video_pose = pose_analyser_->detector_->get_pose(video_image);
             camera_pose = pose_analyser_->detector_->get_pose(camera_image);
             auto pose_end = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(pose_end - pose_start).count();
+            
+            cv::Mat image_with_landmarks = graphics_->draw_keypoints_to_image(camera_image, camera_pose.keypoints);
+            image_with_landmarks.copyTo(interface_graphics->camera_image);
+            video_image.copyTo(interface_graphics->video_image);
 
             auto end_time = std::chrono::high_resolution_clock::now();
             auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);

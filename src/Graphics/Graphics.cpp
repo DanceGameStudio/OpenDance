@@ -35,8 +35,8 @@ cv::Mat Graphics::draw_keypoints_to_image(cv::Mat& image, const std::vector<Pose
 {
     cv::Mat landmark_image = image.clone();
     for (const auto& keypoint : keypoints) {
-        cv::Point2f point(keypoint.x * landmark_image.rows, keypoint.y * landmark_image.cols);
-        cv::circle(landmark_image, point, 2, cv::Scalar(0, 255, 0), cv::FILLED);
+        cv::Point2f point(keypoint.x * landmark_image.cols, keypoint.y * landmark_image.rows);
+        cv::circle(landmark_image, point, 3, cv::Scalar(0, 255, 0), cv::FILLED);
     }
     return landmark_image;
 }
