@@ -37,6 +37,16 @@ void GuiInterface::set_game_status(GameStatus status)
     game_status_ = status;
 }
 
+int GuiInterface::get_score() 
+{
+    return score_;
+}
+
+void GuiInterface::set_score(int score)
+{
+    score_ = score;
+}
+
 GameStatus GuiInterface::get_game_status() const
 {
     return game_status_;
