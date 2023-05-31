@@ -50,8 +50,7 @@ void GameLogic::loop()
 
             // Ausgabe der gemessenen Zeit in Millisekunden
             std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
-            //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-            float cosine_similarity = pose_analyser_->compare_poses(video_pose, video_pose);
+            float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
             score += calc_score(cosine_similarity);
             std::cout << "Similarity: " << cosine_similarity << " Score: " << score << "\n";
             interface_->set_score(score);
