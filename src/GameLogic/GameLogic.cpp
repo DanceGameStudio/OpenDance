@@ -50,12 +50,12 @@ void GameLogic::loop()
 
             // Ausgabe der gemessenen Zeit in Millisekunden
             std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
+            //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
             float cosine_similarity = pose_analyser_->compare_poses(video_pose, video_pose);
-            // float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-            std::cout << "Similarity: " << cosine_similarity << "\n";
-            player.score = calc_score(cosine_similarity);
+            score += calc_score(cosine_similarity);
+            std::cout << "Similarity: " << cosine_similarity << " Score: " << score << "\n";
+            interface_->set_score(score);
         }
-        score_board_->player_list_.push_back(player);
     }
 }
 
@@ -68,7 +68,10 @@ void GameLogic::load_configuration()
 
 int GameLogic::calc_score(float similarity)
 {
-    return std::abs(similarity * 100);
+    if (similarity < 0) {
+        return 0;
+    }
+    return std::abs(similarity * 10);
 }
 
 }
