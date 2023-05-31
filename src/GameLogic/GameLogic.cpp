@@ -67,10 +67,14 @@ void GameLogic::load_configuration()
 
 int GameLogic::calc_score(float similarity)
 {
-    if (similarity < 0) {
+    if (similarity <= 0.0f) {
         return 0;
     }
-    return std::abs(similarity * 10);
+
+    float scaled_similarity = 1.0f - similarity; 
+    float scaled_score = std::pow(scaled_similarity, 2) * 10.0f; 
+
+    return static_cast<int>(scaled_score);
 }
 
 }
