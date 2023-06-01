@@ -8,6 +8,7 @@ class GuiInterface {
 private:
     GameStatus game_status_;
     int score_ = 0;
+    std::string videoPath_;
 
 public:
     GuiInterface()
@@ -26,6 +27,9 @@ public:
     void set_scoreboard(ScoreBoard& score_board);
     void set_graphics(Graphics& graphics);
     void set_game_status(GameStatus status);
+
+    std::string get_videoPath() { return videoPath_; }
+    void set_videoPath(std::string path) { videoPath_ = path; }
 
     std::shared_ptr<Graphics> graphics_ = std::make_shared<Interface::Graphics>();
     Settings settings_;

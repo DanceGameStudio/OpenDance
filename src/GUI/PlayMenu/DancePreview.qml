@@ -52,9 +52,12 @@ Rectangle {
 			top: parent.top
 			topMargin: 35
 			bottom: parent.bottom
-			bottomMargin: 5
+			bottomMargin: 13
+
 			left: parent.left
+			leftMargin: 10
 			right: parent.right
+			rightMargin: 10
 		}
 
 		MediaPlayer {
@@ -68,13 +71,7 @@ Rectangle {
 		VideoOutput {
 			id: videoOutput
 			source: player
-			//anchors.fill: parent
-			anchors {
-				left: parent.left
-				right: parent.right
-				top: parent.top
-				bottom: parent.bottom
-			}
+			anchors.fill: parent
 		}
 	}
 

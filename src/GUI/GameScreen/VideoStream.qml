@@ -4,10 +4,10 @@ import Game 1.0
 Rectangle {
 	id: root
 
-	color: "transparent"
+	color: color_bgTrans
 	border {
 		width: 5
-		color: "grey"
+		color: color_bg
 	}
 
 	property alias content: content
