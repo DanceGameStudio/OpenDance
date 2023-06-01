@@ -27,7 +27,7 @@ Window {
 
     GameScreen {
         id: gameScreen
-        visible: true
+        visible: false
 
         anchors.fill: parent
 
@@ -58,7 +58,7 @@ Window {
     
     PlayMenu {
         id: playMenu
-        visible: false
+        visible: true
 
         anchors.fill: parent
 

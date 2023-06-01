@@ -91,10 +91,10 @@ Rectangle {
 					}
 				}
 
-				color: color_bgTrans
+				color: "black"
 				border {
 					width: 5
-					color: "grey"
+					color: color_bg
 				}
 
 				Text {
@@ -114,7 +114,6 @@ Rectangle {
 						let newScore = c_gameInterface.get_score();
 						if (scoreText.text == newScore) { return; }
 
-						console.log("CHANGE!")
 						scoreText.text = newScore;
 						scoreAnim.restart()
 					}
@@ -123,20 +122,6 @@ Rectangle {
 			}
 		}
 	}
-
-	/*
-	StyledButton {
-		text: "HIT!"
-		width: 200
-		height: 200
-		x: parent.width-200
-		y: parent.height-200
-
-		onClicked: {
-			scoreAnim.restart()
-		}
-	}
-	*/
 
 	PauseMenu {
 		id: pauseMenu

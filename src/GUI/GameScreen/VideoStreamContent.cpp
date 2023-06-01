@@ -7,7 +7,7 @@ VideoStreamContent::VideoStreamContent(QQuickItem* parent) : QQuickPaintedItem(p
 
 void VideoStreamContent::paint(QPainter* painter)
 {
-    painter->setBrush(Qt::darkBlue);
+    painter->setBrush(Qt::black);
     painter->drawRect(0, 0, this->width(), this->height());
     painter->drawImage(QRect(0, 0, this->width(), this->height()), m_src);
 }

@@ -10,8 +10,9 @@ Rectangle {
 	}
 
 	signal gameSelected
-	property int sizes_danceHeight: 150
-	property int sizes_danceWidth: 250
+	property int sizes_danceWidth: 220
+	property int sizes_danceHeight: sizes_danceWidth*(9/16) + 35
+	property string video: ""
 	
     PathView {
 		id: dancesView
@@ -32,6 +33,12 @@ Rectangle {
 			property PathView view: dancesView
 			idx: index
 			isSelected: dancesView.currentIndex == idx-2
+
+			onIsSelectedChanged: {
+				if (isSelected) {
+					root.video = model.video
+				}
+			}
 		}
         path: Path {
             startX: -sizes_danceWidth/2; startY: 150
@@ -87,6 +94,10 @@ Rectangle {
 			horizontalCenter: parent.horizontalCenter
 		}
 
-		onClicked: root.gameSelected()
+		onClicked: {
+			root.gameSelected()
+			c_gameInterface.set_videoPath(root.video)
+			console.log(root.video)
+		}
 	}
 }
