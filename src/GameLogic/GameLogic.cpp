@@ -71,8 +71,8 @@ int GameLogic::calc_score(float similarity)
         return 0;
     }
 
-    float scaled_similarity = 1.0f - similarity; 
-    float scaled_score = std::pow(scaled_similarity, 2) * 10.0f; 
+    const float scale = 10;
+    float scaled_score = std::pow(similarity * scale, 2); 
 
     return static_cast<int>(scaled_score);
 }
