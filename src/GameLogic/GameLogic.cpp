@@ -12,45 +12,69 @@ void GameLogic::loop()
     cv::Mat camera_image;
     PoseEstimation::Pose camera_pose;
     PoseEstimation::Pose video_pose;
-    auto graphics = interface_->get_graphics();
+    auto interface_graphics = interface_->get_graphics();
     int fps = graphics_->get_video_fps();
     ScoreBoard::Player player(std::chrono::system_clock::now());
     int score = 0;
-
+    bool run_game = false;
+    
     while (true) {
-        auto start_time = std::chrono::high_resolution_clock::now();
-        camera_image = graphics_->get_camera_image();
-        video_image  = graphics_->get_video_image();
-
-        camera_image.copyTo(graphics->camera_image);
-        video_image.copyTo(graphics->video_image);
-
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-        int wait_time = 1000 / fps - time_diff.count();
-        if (wait_time > 0) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
+        if (interface_->get_game_status() == Interface::Running) {
+            run_game = true;
         }
-        //camera_pose = pose_analyser_->detector_->get_pose(camera_image);
-        video_pose = pose_analyser_->detector_->get_pose(video_image);
-        float cosine_similarity = pose_analyser_->compare_poses(video_pose, video_pose);
-        //float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-        std::cout << "Similarity: " << cosine_similarity << "\n";
-        player.score = calc_score(cosine_similarity);         
+        while (run_game) {
+            if (interface_->get_game_status() != Interface::Running) {
+                run_game = false;
+                break;
+            }
+            auto start_time = std::chrono::high_resolution_clock::now();
+            camera_image = graphics_->get_camera_image();
+            video_image = graphics_->get_video_image();
+
+            auto pose_start = std::chrono::high_resolution_clock::now();
+            video_pose = pose_analyser_->detector_->get_pose(video_image);
+            camera_pose = pose_analyser_->detector_->get_pose(camera_image);
+            auto pose_end = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(pose_end - pose_start).count();
+            
+            cv::Mat image_with_landmarks = graphics_->draw_keypoints_to_image(camera_image, camera_pose.keypoints);
+            image_with_landmarks.copyTo(interface_graphics->camera_image);
+            video_image.copyTo(interface_graphics->video_image);
+
+            auto end_time = std::chrono::high_resolution_clock::now();
+            auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+            int wait_time = 1000 / fps - time_diff.count();
+            if (wait_time > 0) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
+            }
+
+            // Ausgabe der gemessenen Zeit in Millisekunden
+            std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
+            float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
+            score += calc_score(cosine_similarity);
+            std::cout << "Similarity: " << cosine_similarity << " Score: " << score << "\n";
+            interface_->set_score(score);
+        }
     }
-    score_board_->player_list_.push_back(player);
 }
 
 void GameLogic::load_configuration()
 {
-    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "Beispiel_03.mp4";
+    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "Beispiel_01.mp4";
     settings_->set_video_path(current_path.string());
     graphics_->apply_settings(settings_);
 }
 
 int GameLogic::calc_score(float similarity)
 {
-    return std::abs(similarity * 100);
+    if (similarity <= 0.0f) {
+        return 0;
+    }
+
+    float scaled_similarity = 1.0f - similarity; 
+    float scaled_score = std::pow(scaled_similarity, 2) * 10.0f; 
+
+    return static_cast<int>(scaled_score);
 }
 
 }

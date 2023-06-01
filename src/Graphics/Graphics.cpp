@@ -31,6 +31,16 @@ void Graphics::flip_camera_image()
 
 }
 
+cv::Mat Graphics::draw_keypoints_to_image(cv::Mat& image, const std::vector<PoseEstimation::Keypoint>& keypoints)
+{
+    cv::Mat landmark_image = image.clone();
+    for (const auto& keypoint : keypoints) {
+        cv::Point2f point(keypoint.x * landmark_image.cols, keypoint.y * landmark_image.rows);
+        cv::circle(landmark_image, point, 3, cv::Scalar(0, 255, 0), cv::FILLED);
+    }
+    return landmark_image;
+}
+
 void Graphics::apply_settings(std::unique_ptr<Settings::Settings>& settings)
 {
     camera_->change_device_id(settings->get_camera_id());

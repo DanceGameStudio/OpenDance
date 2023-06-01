@@ -10,19 +10,18 @@ int main([[maybe_used]] int argc, [[maybe_used]] char** argv)
 
     bool stopGame = false;
 
-    std::thread thrd_game([&]() {
-        std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>(gui_interface);
-        game->loop();
-    });
-
     std::thread thrd_gui([&]() {
         std::unique_ptr<GUI> gui = std::make_unique<GUI>(gui_interface);
         gui->run(argc, argv);
         stopGame = true;
     });
 
+    std::unique_ptr<GameLogic::GameLogic> game = std::make_unique<GameLogic::GameLogic>(gui_interface);
+    game->loop();
+
+
     thrd_gui.join();
-    thrd_game.join();
+
 
     return 0;
 }

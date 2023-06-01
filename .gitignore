@@ -20,6 +20,9 @@
 *.app
 /out/build/x64-Debug
 /.vs
-/3rdparty
+
 /out/build/x64-Release
-/3rdparty/gflags-2.2.2/bin/.vs/gflags/v17/Browse.VC.db
+
+/3rdparty/openpose
+/3rdparty/opencv-4.7.0/build/x64/vc16/bin
+/3rdparty/gflags-2.2.2/bin

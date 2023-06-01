@@ -95,7 +95,7 @@ void PoseAnalyser::compare_arms(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 4;
 
-    cosine_similarities_.insert(std::make_pair(Poses::POSE_ARMS, result));
+    cosine_similarities_.at(Poses::POSE_ARMS) = result;
 }
 
 void PoseAnalyser::compare_legs(Pose& first_pose, Pose& second_pose)
@@ -129,7 +129,7 @@ void PoseAnalyser::compare_legs(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 4;
 
-    cosine_similarities_.insert(std::make_pair(Poses::POSE_LEGS, result));
+    cosine_similarities_.at(Poses::POSE_LEGS) = result;
 }
 
 void PoseAnalyser::compare_chest(Pose& first_pose, Pose& second_pose)
@@ -163,7 +163,7 @@ void PoseAnalyser::compare_chest(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 4;
 
-    cosine_similarities_.insert(std::make_pair(Poses::POSE_CHEST, result));
+    cosine_similarities_.at(Poses::POSE_CHEST) = result;
 }
 
 void PoseAnalyser::compare_head(Pose& first_pose, Pose& second_pose)
@@ -203,7 +203,7 @@ void PoseAnalyser::compare_head(Pose& first_pose, Pose& second_pose)
     // Divide result by the number of comparisons
     result /= 5;
 
-    cosine_similarities_.insert(std::make_pair(Poses::POSE_HEAD, result));
+    cosine_similarities_.at(Poses::POSE_HEAD) = result;
 }
 
 Utility::Math::Vector3 PoseAnalyser::keypoints_to_vector3(Keypoint& start_keypoint, Keypoint& direction_keypoint)

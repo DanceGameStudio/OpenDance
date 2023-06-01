@@ -1,7 +1,0 @@
-﻿  Building Custom Rule F:/Mittelstufenprojekt/gflags-2.2.2/CMakeLists.txt
-  gflags.cc
-  gflags_reporting.cc
-  gflags_completions.cc
-  windows_port.cc
-  Code wird generiert...
-  gflags_nothreads_static.vcxproj -> F:\Mittelstufenprojekt\gflags-2.2.2\bin\lib\Release\gflags_nothreads_static.lib

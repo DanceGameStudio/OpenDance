@@ -1,7 +1,0 @@
-﻿  Building Custom Rule F:/Mittelstufenprojekt/gflags-2.2.2/CMakeLists.txt
-  gflags.cc
-  gflags_reporting.cc
-  gflags_completions.cc
-  windows_port.cc
-  Code wird generiert...
-  gflags_static.vcxproj -> F:\Mittelstufenprojekt\gflags-2.2.2\bin\lib\Debug\gflags_static_debug.lib
