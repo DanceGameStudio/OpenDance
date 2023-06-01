@@ -7,7 +7,7 @@ namespace Interface {
 class GuiInterface {
 private:
     GameStatus game_status_;
-    int score_;
+    int score_ = 0;
 
 public:
     GuiInterface()

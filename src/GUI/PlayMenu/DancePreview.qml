@@ -2,6 +2,9 @@ import QtQuick 2.15
 import QtQuick.Controls 1.4
 import QtMultimedia 5.15
 
+
+// https://www.codecguide.com/download_kl.htm
+
 Rectangle {
 	id: root
 	width: sizes_danceWidth
@@ -9,14 +12,12 @@ Rectangle {
 	//opacity: PathView.opacity
 	scale: PathView.scale
 
-	/*
-	color: Qt.rgba(.2, .2, .2, .9)
+	radius: width/20
+	color: color_bgTrans
 	border {
-		width: 2
-		color: Qt.rgba(.8, .8, .8, 1)
+		color: color_bg
+		width: 3
 	}
-	*/
-	color: "transparent"
 	
 	property int idx: 0
 	property bool isSelected: false
@@ -59,6 +60,7 @@ Rectangle {
 		MediaPlayer {
 			id: player
 			source: model.video
+
 			autoPlay: false
 			loops: MediaPlayer.Infinite
 		}
@@ -81,7 +83,7 @@ Rectangle {
 
 		anchors.fill: parent
 
-		cursorShape: Qt.PointingHandCursorShape
+		cursorShape: Qt.PointingHandCursor
 		onClicked: {
 			view.setSelected(idx)
 		}

@@ -3,7 +3,7 @@ import Game 1.0
 
 Rectangle {
 	id: root
-		
+
 	color: "transparent"
 	border {
 		width: 5

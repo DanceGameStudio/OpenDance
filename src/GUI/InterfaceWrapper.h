@@ -47,7 +47,7 @@ public:
         connect(this, &InterfaceWrapper::videoStreamUpdated, stream, &VideoStreamContent::imageUpdated);
     }
 
-    
+    Q_INVOKABLE int get_score() { return m_interface->get_score(); }
     
     Q_INVOKABLE void set_game_status(int status) {
         m_interface->set_game_status((GameStatus)status);

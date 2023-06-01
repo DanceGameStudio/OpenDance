@@ -20,9 +20,9 @@ Shape {
 	property int sizes_offset: height/2
 
 	ShapePath {
-		fillColor: Qt.rgba(.2, .2, .2, .9)
+		fillColor: color_bgTrans
 		strokeWidth: 3
-		strokeColor: Qt.rgba(.8, .8, .8, 1)
+		strokeColor: color_bg
 
 		startX: sizes_offset; startY: 0
 		PathLine { x: root.width; y: 0 }
