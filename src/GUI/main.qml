@@ -10,8 +10,8 @@ Window {
     //flags: Qt.FramelessWindowHint | Qt.Window
     color: "black"
     
-    property color color_bg: Qt.rgba(194/255, 66/255, 245/255, 1)
-    property color color_bgTrans: Qt.rgba(194/255, 66/255, 245/255, 100/255)
+    property color color_bg: Qt.rgba(247/255, 2/255, 251/255, 1)
+    property color color_bgTrans: Qt.rgba(247/255, 2/255, 251/255, 100/255)
     
     property int sizes_spacing: root.height*.05
     property int sizes_titleWidth: root.width*.2
