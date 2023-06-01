@@ -4,10 +4,10 @@ namespace PoseEstimation {
 
 float PoseAnalyser::compare_poses(Pose& first_pose, Pose& second_pose)
 {
-    const float head_scale = 0.2;
-    const float arm_scale = 1.4;
-    const float chest_scale = 1;
-    const float leg_scale = 1.4;
+    //const float head_scale = 0.2;
+    const float arm_scale = 1.5;
+    const float chest_scale = 0.8;
+    const float leg_scale = 1.5;
 
     // Fill the map with all obtainable poses
     initialise_valid_poses(first_pose, second_pose);
@@ -30,10 +30,10 @@ float PoseAnalyser::compare_poses(Pose& first_pose, Pose& second_pose)
         compare_chest(first_pose, second_pose);
         result += cosine_similarities_[Poses::POSE_CHEST] * chest_scale;
     }
-    if (cosine_similarities_.count(Poses::POSE_HEAD)) {
-        compare_head(first_pose, second_pose);
-        result += cosine_similarities_[Poses::POSE_HEAD] * head_scale;
-    }
+    //if (cosine_similarities_.count(Poses::POSE_HEAD)) {
+    //    compare_head(first_pose, second_pose);
+    //    result += cosine_similarities_[Poses::POSE_HEAD] * head_scale;
+    //}
 
     // Divide the result by the number of obtained poses
     result /= cosine_similarities_.size();
