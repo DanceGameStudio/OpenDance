@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtQuick.Controls 1.4
 import QtMultimedia 5.15
 
-
 // https://www.codecguide.com/download_kl.htm
 
 Rectangle {
@@ -60,6 +59,7 @@ Rectangle {
 			rightMargin: 10
 		}
 
+		/*
 		MediaPlayer {
 			id: player
 			source: model.video
@@ -72,6 +72,18 @@ Rectangle {
 			id: videoOutput
 			source: player
 			anchors.fill: parent
+		}
+		*/
+
+		Video {
+			id: player
+			anchors.fill: parent
+
+			autoLoad: true
+			autoPlay: false
+
+			source: model.video
+			loops: MediaPlayer.Infinite
 		}
 	}
 
