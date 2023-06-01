@@ -11,10 +11,9 @@ Rectangle {
 
 	opacity: mouse.containsMouse ? (mouse.containsPress ? .9 : 1) : .7
 	radius: width/20
-	color: Qt.rgba(.2, .2, .2, .9)
-
+	color: color_bgTrans
 	border {
-		color: Qt.rgba(.8, .8, .8, 1)
+		color: color_bg
 		width: 3
 	}
 	

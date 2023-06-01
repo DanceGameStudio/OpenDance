@@ -52,11 +52,36 @@ Rectangle {
 				c_gameInterface.connectCamera(streamSmall.content)
 			}
 		}
+		
+		Rectangle {
+			id: score
+			
+			width: (container.width - streamBig.width)
+			height: (container.height - streamBig.height)
+
+			anchors {
+				left: streamBig.left
+				leftMargin: -width/3
+
+				top: streamBig.top
+				topMargin: -height/3
+			}
+
+			color: color_bg
+			border {
+				width: 5
+				color: "grey"
+			}
+
+			Text {
+
+			}
+		}
 	}
 
 	PauseMenu {
 		id: pauseMenu
-		visible: true
+		visible: false
 
 		onQuitGame: root.quitGame()
 		onOpenSettings: root.openSettings()
