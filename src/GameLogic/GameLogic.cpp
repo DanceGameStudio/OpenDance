@@ -21,6 +21,7 @@ void GameLogic::loop()
     while (true) {
         if (interface_->get_game_status() == Interface::Running) {
             run_game = true;
+            interface_->set_score(score);
         }
         while (run_game) {
             if (interface_->get_game_status() != Interface::Running) {
@@ -60,21 +61,29 @@ void GameLogic::loop()
 
 void GameLogic::load_configuration()
 {
-    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "Beispiel_01.mp4";
+    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "T-Pose.mp4";
     settings_->set_video_path(current_path.string());
     graphics_->apply_settings(settings_);
 }
 
 int GameLogic::calc_score(float similarity)
 {
-    if (similarity <= 0.0f) {
-        return 0;
+    int score = 0;
+    if (similarity < 0.7f) {
+        return score;
+    } else if (similarity <= 0.8f) {
+        score = 1;
+    } else if (similarity <= 0.9f) {
+        score = 2;
+    } else if (similarity > 0.9f) {
+        score = 5;
     }
 
-    const float scale = 10;
-    float scaled_score = std::pow(similarity * scale, 2); 
+    //const float scale = 5;
+    //float scaled_score = std::pow(similarity * scale, 2); 
 
-    return static_cast<int>(scaled_score);
+    //return std::abs(scaled_score);
+    return score;
 }
 
 }

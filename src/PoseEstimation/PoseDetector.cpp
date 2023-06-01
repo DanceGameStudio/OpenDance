@@ -15,7 +15,7 @@ try:
     import numpy as np
     import mediapipe as mp
     
-    pose = mp.solutions.pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.5, model_complexity=1)
+    pose = mp.solutions.pose.Pose(min_detection_confidence=0.8, min_tracking_confidence=0.7, model_complexity=0)
 except:
     print(f"Ein Fehler ist aufgetreten: {e}")
 print("cv2, numpy und Mediapipe importiert")
