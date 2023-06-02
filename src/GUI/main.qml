@@ -16,6 +16,10 @@ Window {
     property int sizes_spacing: root.height*.05
     property int sizes_titleWidth: root.width*.2
     property int sizes_titleHeight: root.height*.1
+    
+    property int gamestatus_running: 1
+    property int gamestatus_paused: 2
+    property int gamestatus_stopped: 3
 
     MenuBackground {
         id: menuBackground
