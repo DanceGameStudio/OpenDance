@@ -43,7 +43,7 @@ Rectangle {
 					right: parent.right
 				}
 				onClicked: {
-					c_gameInterface.set_game_status(0);
+					c_gameInterface.set_game_status(gamestatus_playing);
 					root.visible = false
 				}
 				text: "Resume"
@@ -74,7 +74,7 @@ Rectangle {
 					right: parent.right
 				}
 				onClicked: {
-					c_gameInterface.set_game_status(2);
+					c_gameInterface.set_game_status(gamestatus_stopped);
 					root.quitGame();
 				}
 				text: "Quit"

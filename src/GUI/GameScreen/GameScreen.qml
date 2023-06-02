@@ -8,7 +8,7 @@ Rectangle {
     focus: true
 	Keys.onEscapePressed: {
 		pauseMenu.visible = !pauseMenu.visible
-		c_gameInterface.set_game_status(pauseMenu.visible ? 1 : 0);
+		c_gameInterface.set_game_status(pauseMenu.visible ? gamestatus_paused : gamestatus_running);
 	}
 
 	signal quitGame
@@ -127,7 +127,10 @@ Rectangle {
 		id: pauseMenu
 		visible: false
 
-		onQuitGame: root.quitGame()
+		onQuitGame: {
+			root.quitGame()
+			pauseMenu.visible = false
+		}
 		onOpenSettings: root.openSettings()
 	}
 }

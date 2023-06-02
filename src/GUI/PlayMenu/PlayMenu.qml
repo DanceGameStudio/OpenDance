@@ -96,8 +96,8 @@ Rectangle {
 
 		onClicked: {
 			root.gameSelected()
-			c_gameInterface.set_videoPath(root.video)
-			console.log(root.video)
+			c_gameInterface.set_videoPath(root.video);
+			c_gameInterface.set_game_status(gamestatus_running);
 		}
 	}
 }
