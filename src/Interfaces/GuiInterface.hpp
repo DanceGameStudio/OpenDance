@@ -14,7 +14,7 @@ private:
 public:
     GuiInterface()
     {
-        game_status_ = Paused;
+        game_status_ = Stopped;
     }
 
     Settings& get_settings();
