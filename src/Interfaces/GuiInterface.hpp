@@ -31,10 +31,13 @@ public:
     void set_game_status(GameStatus status);
 
     std::string get_videoPath() { return videoPath_; }
-    void set_videoPath(std::string path)
-    {
+    void set_videoPath(std::string path) {
         videoPath_ = path;
         settings_changed_ = true;
+    }
+
+    void set_settings_changed(bool changed) {
+        settings_changed_ = changed;
     }
 
     std::shared_ptr<Graphics> graphics_ = std::make_shared<Interface::Graphics>();
