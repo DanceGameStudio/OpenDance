@@ -16,16 +16,21 @@ void GameLogic::loop()
     int fps = graphics_->get_video_fps();
     ScoreBoard::Player player(std::chrono::system_clock::now());
     int score = 0;
-    bool run_game = false;
-    
-    while (true) {
-        if (interface_->get_game_status() == Interface::Running) {
-            run_game = true;
+    bool run_image_proccesing = false;
+    bool run_game = true;
+
+    while (run_game) {
+        if (interface_->get_settings_changed()) {
+            settings_->set_video_path(interface_->get_videoPath());
+            graphics_->apply_settings(settings_);
+            interface_->set_score(0);
+        } else if (interface_->get_game_status() == Interface::Running) {
+            run_image_proccesing = true;
             interface_->set_score(score);
         }
-        while (run_game) {
+        while (run_image_proccesing) {
             if (interface_->get_game_status() != Interface::Running) {
-                run_game = false;
+                run_image_proccesing = false;
                 break;
             }
             auto start_time = std::chrono::high_resolution_clock::now();
@@ -61,7 +66,7 @@ void GameLogic::loop()
 
 void GameLogic::load_configuration()
 {
-    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "T-Pose.mp4";
+    std::filesystem::path current_path = std::filesystem::current_path() / "video" / "Beispiel_01.mp4";
     settings_->set_video_path(current_path.string());
     graphics_->apply_settings(settings_);
 }

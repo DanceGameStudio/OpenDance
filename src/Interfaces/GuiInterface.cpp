@@ -52,5 +52,9 @@ GameStatus GuiInterface::get_game_status() const
     return game_status_;
 }
 
+bool GuiInterface::get_settings_changed()
+{
+    return settings_changed_;
+}
 
 }
