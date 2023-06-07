@@ -33,6 +33,7 @@ void GameLogic::loop()
             settings_->set_video_path(video_path);
             graphics_->apply_settings(settings_);
             interface_->set_score(0);
+            score = 0;
             interface_->set_settings_changed(false);
             std::cout << "Neuer Videopfad: " << video_path << std::endl;
         } else if (interface_->get_game_status() == Interface::Running) {
@@ -99,7 +100,7 @@ void GameLogic::load_configuration()
     config_->set_path(config_path.string());
     config_->read_config();
 
-    std::string video_path = config_->get_value(Utility::ConfigFile::ConfigIndex("video", "path"), std::string("default.mp4"));
+    std::string video_path = config_->get_value(Utility::ConfigFile::ConfigIndex("video", "path"), std::string("Beispiel_01.mp4"));
     settings_->set_video_path(std::filesystem::current_path().string() + video_path);
     settings_->set_camera_id(config_->get_value(Utility::ConfigFile::ConfigIndex("input", "camera"), 0.0));
     graphics_->apply_settings(settings_);
