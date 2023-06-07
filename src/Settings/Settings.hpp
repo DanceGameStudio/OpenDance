@@ -18,7 +18,6 @@ public:
     void set_video_path(std::string path);
 
 private:
-    std::unique_ptr<Utility::ConfigFile> config_ = std::make_unique<Utility::ConfigFile>();
     std::unique_ptr<Audio> audio_ = std::make_unique<Audio>();
 
     std::string video_path_;
