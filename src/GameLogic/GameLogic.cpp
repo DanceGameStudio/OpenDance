@@ -16,9 +16,13 @@ void GameLogic::loop()
     PoseEstimation::Pose video_pose;
 
     int fps = graphics_->get_video_fps();
+    if (fps == 0) {
+        fps = 30;
+    }
+
     int score = 0;
     int image_count = 0;
-    int image_processing_interval = 1;
+    int image_processing_interval = 3;
 
     bool run_image_proccesing = false;
     bool run_game = true;
@@ -49,21 +53,23 @@ void GameLogic::loop()
             video_image = graphics_->get_video_image();
 
             // Image processing
-            if (image_count % image_processing_interval == 0) {
-                auto pose_start = std::chrono::high_resolution_clock::now();
-                video_pose = pose_analyser_->detector_->get_pose(video_image);
-                camera_pose = pose_analyser_->detector_->get_pose(camera_image);
-                auto pose_end = std::chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(pose_end - pose_start).count();
-                cv::Mat image_with_landmarks = graphics_->draw_keypoints_to_image(camera_image, camera_pose.keypoints);
-                image_with_landmarks.copyTo(interface_graphics->camera_image);
-                std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
+            if (image_count != 0 && image_processing_interval != 0) {
+                if (image_count % image_processing_interval == 0) {
+                    auto pose_start = std::chrono::high_resolution_clock::now();
+                    video_pose = pose_analyser_->detector_->get_pose(video_image);
+                    camera_pose = pose_analyser_->detector_->get_pose(camera_image);
+                    auto pose_end = std::chrono::high_resolution_clock::now();
+                    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(pose_end - pose_start).count();
+                    cv::Mat image_with_landmarks = graphics_->draw_keypoints_to_image(camera_image, camera_pose.keypoints);
+                    image_with_landmarks.copyTo(interface_graphics->camera_image);
+                    std::cout << "Verarbeitungszeit: " << duration / 1000000.0 << "ms | " << duration << "ns" << std::endl;
 
-                // Calc score from similarity
-                float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
-                score += calc_score(cosine_similarity);
-                std::cout << "Similarity: " << cosine_similarity << " Score: " << score << "\n";
-                interface_->set_score(score);
+                    // Calc score from similarity
+                    float cosine_similarity = pose_analyser_->compare_poses(camera_pose, video_pose);
+                    score += calc_score(cosine_similarity);
+                    std::cout << "Similarity: " << cosine_similarity << " Score: " << score << "\n";
+                    interface_->set_score(score);
+                }
             } else {
                 camera_image.copyTo(interface_graphics->camera_image);
             }
