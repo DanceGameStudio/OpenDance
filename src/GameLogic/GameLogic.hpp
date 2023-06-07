@@ -18,6 +18,8 @@ public:
         load_configuration();
     };
 
+   ~GameLogic();
+
     void loop();
 
 private:
@@ -30,6 +32,7 @@ private:
     std::unique_ptr<PoseEstimation::PoseAnalyser> pose_analyser_ = std::make_unique<PoseEstimation::PoseAnalyser>();
     std::unique_ptr<ScoreBoard::ScoreBoard> score_board_         = std::make_unique<ScoreBoard::ScoreBoard>();
     std::unique_ptr<Settings::Settings> settings_                = std::make_unique<Settings::Settings>();
+    std::unique_ptr<Utility::ConfigFile> config_                 = std::make_unique<Utility::ConfigFile>();
 };
 
 }
