@@ -11,7 +11,7 @@ DancesModel::DancesModel(QObject* parent)
     , m_dances()
 {
 
-    QString videosPath = QCoreApplication::applicationDirPath() + "/../../../../video/";
+    QString videosPath = QCoreApplication::applicationDirPath() + "/video/";
     for (const auto& file : std::filesystem::recursive_directory_iterator(videosPath.toStdString())) {
         const auto& path = file.path();
 
