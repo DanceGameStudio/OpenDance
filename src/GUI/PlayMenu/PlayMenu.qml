@@ -32,7 +32,7 @@ Rectangle {
         delegate: DancePreview {
 			property PathView view: dancesView
 			idx: index
-			isSelected: dancesView.currentIndex == idx-2
+			isSelected: dancesView.currentIndex == idx-2 && root.visible
 
 			onIsSelectedChanged: {
 				if (isSelected) {
