@@ -26,9 +26,9 @@ struct ScoreBoard {
 };
 
 enum GameStatus {
-    Running,
-    Paused,
-    Stopped
+    Running = 1,
+    Paused = 2,
+    Stopped = 3
 };
 
 }
