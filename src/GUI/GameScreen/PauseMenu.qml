@@ -43,7 +43,7 @@ Rectangle {
 					right: parent.right
 				}
 				onClicked: {
-					c_gameInterface.set_game_status(gamestatus_playing);
+					c_gameInterface.set_game_status(gamestatus_running);
 					root.visible = false
 				}
 				text: "Resume"
