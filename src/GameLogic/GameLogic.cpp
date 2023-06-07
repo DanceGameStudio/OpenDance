@@ -50,7 +50,7 @@ void GameLogic::loop()
                 break;
             }
 
-            camera_image = graphics_->get_camera_image();
+            camera_image = graphics_->get_video_image();
             video_image = graphics_->get_video_image();
 
             // Image processing
