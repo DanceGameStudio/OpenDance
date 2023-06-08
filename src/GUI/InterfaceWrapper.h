@@ -47,8 +47,13 @@ public:
         connect(this, &InterfaceWrapper::videoStreamUpdated, stream, &VideoStreamContent::imageUpdated);
     }
 
+    Q_INVOKABLE int get_score() { return m_interface->get_score(); }
     
-    
+
+    Q_INVOKABLE std::string get_videoPath() { return m_interface->get_videoPath(); }
+    Q_INVOKABLE void set_videoPath(QString path) { m_interface->set_videoPath(path.toStdString()); }
+
+
     Q_INVOKABLE void set_game_status(int status) {
         m_interface->set_game_status((GameStatus)status);
     };

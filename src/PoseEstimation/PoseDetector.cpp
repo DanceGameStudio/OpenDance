@@ -15,7 +15,7 @@ try:
     import numpy as np
     import mediapipe as mp
     
-    pose = mp.solutions.pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5, model_complexity=0)
+    pose = mp.solutions.pose.Pose(min_detection_confidence=0.8, min_tracking_confidence=0.7, model_complexity=0)
 except:
     print(f"Ein Fehler ist aufgetreten: {e}")
 print("cv2, numpy und Mediapipe importiert")
@@ -58,17 +58,7 @@ std::vector<Keypoint> PoseDetector::detect_keypoints(const cv::Mat& image)
     try {
         py::function detect_pose = locals["detect_pose"];
 
-        // Bild auf die Zielgröße skalieren
-        cv::Mat process_image;
-        image.copyTo(process_image);
-        const int image_width = 224;
-        const int image_height = 224;
-        const cv::Size targetSize(image_width, image_height);
-        if (!process_image.empty() && process_image.size() != targetSize) {
-            cv::resize(process_image, process_image, targetSize);
-        }
-
-        py::array_t<uint8_t> np_image = py::array_t<uint8_t>({ process_image.rows, process_image.cols, process_image.channels() }, process_image.data);
+        py::array_t<uint8_t> np_image = py::array_t<uint8_t>({ image.rows, image.cols, image.channels() }, image.data);
         py::array_t<float> np_keypoints = detect_pose(np_image).cast<py::array_t<float>>();
 
         py::print("Number of Keypoints:");

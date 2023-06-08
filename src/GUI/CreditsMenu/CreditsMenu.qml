@@ -12,28 +12,28 @@ Rectangle {
 	ListModel {
         id: model
         ListElement {
-            name: "Munir Z."
-            role: "Hurensohn"
+            name: "Munir Zohbi"
+            role: "Backend"
         }
         
         ListElement {
-            name: "Leon T."
-            role: "Schnacker"
+            name: "Leon Theodoridis"
+            role: "Backend"
         }
         
         ListElement {
-            name: "Tim S."
-            role: "Brillenschlange"
+            name: "Tim Skripalle"
+            role: ""
         }
         
         ListElement {
-            name: "Jonas C."
-            role: "Rentner"
+            name: "Jonas Christoph"
+            role: ""
         }
         
         ListElement {
-            name: "Ben S."
-            role: "Geiler Typ"
+            name: "Ben Stiebeiner"
+            role: "Frontend"
         }
     }
 
@@ -47,12 +47,14 @@ Rectangle {
         width: root.width*.5
         height: root.height*.5
 
+        interactive: false
+
         model: model
         delegate: Rectangle {
-		    color: Qt.rgba(.2, .2, .2, .9)
+		    color: color_bgTrans
 		    border {
                 width: 3
-		        color: Qt.rgba(.8, .8, .8, 1)
+		        color: color_bg
             }
             
             width: list.width
@@ -67,7 +69,7 @@ Rectangle {
                     pixelSize: 40
                 }
                 color: "white"
-                text: name + ": " + role
+                text: name // + ": " + role
             }
         }
     }

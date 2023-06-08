@@ -2,6 +2,8 @@ import QtQuick 2.15
 import QtQuick.Controls 1.4
 import QtMultimedia 5.15
 
+// https://www.codecguide.com/download_kl.htm
+
 Rectangle {
 	id: root
 	width: sizes_danceWidth
@@ -9,17 +11,20 @@ Rectangle {
 	//opacity: PathView.opacity
 	scale: PathView.scale
 
-	/*
-	color: Qt.rgba(.2, .2, .2, .9)
+	radius: width/20
+	color: color_bgTrans
 	border {
-		width: 2
-		color: Qt.rgba(.8, .8, .8, 1)
+		color: color_bg
+		width: 3
 	}
-	*/
-	color: "transparent"
 	
-	property int idx: 0
+	property int selectIndex: 0
 	property bool isSelected: false
+
+	Component.onCompleted: { // preload videos
+		player.play();
+		player.pause();
+	}
 
 	onIsSelectedChanged: {
 		if (isSelected) {
@@ -51,14 +56,19 @@ Rectangle {
 			top: parent.top
 			topMargin: 35
 			bottom: parent.bottom
-			bottomMargin: 5
+			bottomMargin: 13
+
 			left: parent.left
+			leftMargin: 10
 			right: parent.right
+			rightMargin: 10
 		}
 
+		/*
 		MediaPlayer {
 			id: player
 			source: model.video
+
 			autoPlay: false
 			loops: MediaPlayer.Infinite
 		}
@@ -66,13 +76,19 @@ Rectangle {
 		VideoOutput {
 			id: videoOutput
 			source: player
-			//anchors.fill: parent
-			anchors {
-				left: parent.left
-				right: parent.right
-				top: parent.top
-				bottom: parent.bottom
-			}
+			anchors.fill: parent
+		}
+		*/
+
+		Video {
+			id: player
+			anchors.fill: parent
+
+			autoLoad: true
+			autoPlay: false
+
+			source: model.video
+			loops: MediaPlayer.Infinite
 		}
 	}
 
@@ -81,9 +97,9 @@ Rectangle {
 
 		anchors.fill: parent
 
-		cursorShape: Qt.PointingHandCursorShape
+		cursorShape: Qt.PointingHandCursor
 		onClicked: {
-			view.setSelected(idx)
+			view.setSelected(selectIndex)
 		}
 	}	
 }

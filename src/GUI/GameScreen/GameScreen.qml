@@ -8,7 +8,7 @@ Rectangle {
     focus: true
 	Keys.onEscapePressed: {
 		pauseMenu.visible = !pauseMenu.visible
-		c_gameInterface.set_game_status(pauseMenu.visible ? 1 : 0);
+		c_gameInterface.set_game_status(pauseMenu.visible ? gamestatus_paused : gamestatus_running);
 	}
 
 	signal quitGame
@@ -52,13 +52,85 @@ Rectangle {
 				c_gameInterface.connectCamera(streamSmall.content)
 			}
 		}
+		
+		Item {
+			id: scoreContianer
+			width: 150
+			height: 50			
+			anchors {
+				left: streamBig.left
+				leftMargin: -(container.width - streamBig.width)/3
+
+				top: streamBig.top
+				topMargin: -(container.height - streamBig.height)/3
+			}
+
+			Rectangle {
+				id: score
+
+				width: 150
+				height: 50
+
+				anchors {
+					verticalCenter: parent.verticalCenter
+					horizontalCenter: parent.horizontalCenter
+				}
+
+				SequentialAnimation {
+					id: scoreAnim
+					running: false
+				
+					ParallelAnimation {
+						NumberAnimation { target: score; property: "width"; to: 175; duration: 30 }
+						NumberAnimation { target: score; property: "height"; to: 75; duration: 30 }
+					}
+				
+					ParallelAnimation {
+						NumberAnimation { target: score; property: "width"; to: 150; duration: 30 }
+						NumberAnimation { target: score; property: "height"; to: 50; duration: 30 }
+					}
+				}
+
+				color: "black"
+				border {
+					width: 5
+					color: color_bg
+				}
+
+				Text {
+					id: scoreText
+					color: "white"
+					text: "0"
+					font.pointSize: parent.width/8
+					anchors {
+						verticalCenter: parent.verticalCenter
+						horizontalCenter: parent.horizontalCenter
+					}
+				}
+				
+				Timer {
+					interval: 1; running: true; repeat: true
+					onTriggered: {
+						let newScore = c_gameInterface.get_score();
+						if (scoreText.text == newScore) { return; }
+
+						scoreText.text = newScore;
+						scoreAnim.restart()
+					}
+				}
+
+			}
+		}
 	}
 
 	PauseMenu {
 		id: pauseMenu
-		visible: true
+		visible: false
 
-		onQuitGame: root.quitGame()
+		onQuitGame: {
+			root.quitGame()
+			pauseMenu.visible = false
+		}
 		onOpenSettings: root.openSettings()
 	}
 }

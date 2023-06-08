@@ -10,9 +10,16 @@ Window {
     //flags: Qt.FramelessWindowHint | Qt.Window
     color: "black"
     
+    property color color_bg: Qt.rgba(247/255, 2/255, 251/255, 1)
+    property color color_bgTrans: Qt.rgba(247/255, 2/255, 251/255, 100/255)
+    
     property int sizes_spacing: root.height*.05
     property int sizes_titleWidth: root.width*.2
     property int sizes_titleHeight: root.height*.1
+    
+    property int gamestatus_running: 1
+    property int gamestatus_paused: 2
+    property int gamestatus_stopped: 3
 
     MenuBackground {
         id: menuBackground
@@ -24,6 +31,7 @@ Window {
 
     GameScreen {
         id: gameScreen
+        visible: false
 
         anchors.fill: parent
 
@@ -35,8 +43,6 @@ Window {
             gameScreen.visible = false;
             playMenu.visible = true;
         }
-
-        visible: true
     }
 
     MainMenu {
@@ -56,8 +62,9 @@ Window {
     
     PlayMenu {
         id: playMenu
+        visible: true
+
         anchors.fill: parent
-        visible: false
 
         onGameSelected: { playMenu.visible = false; gameScreen.visible = true; }
     }
