@@ -17,12 +17,12 @@ void GameLogic::loop()
 
     int fps = graphics_->get_video_fps();
     if (fps == 0) {
-        fps = 30;
+        fps = 60;
     }
 
     int score = 0;
     int image_count = 0;
-    int image_processing_interval = 3;
+    int image_processing_interval = 1;
 
     bool run_image_proccesing = false;
     bool run_game = true;
@@ -48,6 +48,11 @@ void GameLogic::loop()
             if (interface_->get_game_status() != Interface::Running) {
                 run_image_proccesing = false;
                 break;
+            }
+
+            int fps = graphics_->get_video_fps();
+            if (fps == 0) {
+                fps = 60;
             }
 
             camera_image = graphics_->get_video_image();
@@ -81,6 +86,8 @@ void GameLogic::loop()
             auto end_time = std::chrono::high_resolution_clock::now();
             auto time_diff = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
             int wait_time = 1000 / fps - time_diff.count();
+            double real_fps = 1000.0 / time_diff.count();
+            std::cout << "FPS: " << real_fps << std::endl;
             if (wait_time > 0) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(wait_time));
             }
