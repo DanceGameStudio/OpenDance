@@ -22,8 +22,13 @@ void ConfigFile::read_config()
     // Open the file for reading
     std::ifstream file(config_path_);
     if (!file.is_open()) {
-        throw std::runtime_error("Unable to open file: " + config_path_);
+        // If we do not have a config file just return
+        std::cout << "Unable to open config file: " << config_path_;
+        return;
     }
+
+    // Print reading status
+    std::cout << "Reading config file: " << config_path_;
 
     // Parse the file line by line
     std::string line;

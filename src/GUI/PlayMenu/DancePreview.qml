@@ -18,8 +18,13 @@ Rectangle {
 		width: 3
 	}
 	
-	property int idx: 0
+	property int selectIndex: 0
 	property bool isSelected: false
+
+	Component.onCompleted: { // preload videos
+		player.play();
+		player.pause();
+	}
 
 	onIsSelectedChanged: {
 		if (isSelected) {
@@ -94,7 +99,7 @@ Rectangle {
 
 		cursorShape: Qt.PointingHandCursor
 		onClicked: {
-			view.setSelected(idx)
+			view.setSelected(selectIndex)
 		}
 	}	
 }

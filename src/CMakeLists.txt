@@ -65,3 +65,10 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         ${PYTHON_LIBRARIES}
         ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+# Copy Config
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        ${PROJECT_SOURCE_DIR}/cfg
+        ${CMAKE_CURRENT_BINARY_DIR}
+)
