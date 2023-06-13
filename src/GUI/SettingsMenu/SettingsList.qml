@@ -5,20 +5,37 @@ Rectangle {
     id: root
     color: "transparent"
 
+
     ListModel {
         id: fruitModel
 
         ListElement {
-            name: "Apple"
-            cost: 2.45
+            name: "Camera Source"
+            type: "combox"
+            value: 1
+            //values: ["Camera 1", "Camera 2"]
         }
+
         ListElement {
-            name: "Orange"
-            cost: 3.25
+            name: "Difficulty"
+            type: "combox"
+            value: 1
+            //values: ["Easy","Normal","Hard"]
         }
+
         ListElement {
-            name: "Banana"
-            cost: 1.95
+            name: "Playback Speed"
+            type: "slider"
+            min: 0.1
+            def: 1.0
+            value: 1.0
+            max: 2.0
+        }
+
+        ListElement {
+            name: "Name"
+            type: "textentry"
+            value: "Ben"
         }
     }
 
@@ -35,15 +52,37 @@ Rectangle {
         delegate: Item {
             width: view.cellWidth
             height: view.cellHeight
-
+            
             SettingCombox {
                 text: name
+                visible: model.type == "combox"
 
                 width: view.cellWidth - 50
                 height: view.cellHeight - 50
                 x: 25
                 y: 0
+            }
 
+            
+            SettingSlider {
+                text: name
+                visible: model.type == "slider"
+
+                width: view.cellWidth - 50
+                height: view.cellHeight - 50
+                x: 25
+                y: 0
+            }
+
+            
+            SettingTextentry {
+                text: name
+                visible: model.type == "textentry"
+
+                width: view.cellWidth - 50
+                height: view.cellHeight - 50
+                x: 25
+                y: 0
             }
         }
     }

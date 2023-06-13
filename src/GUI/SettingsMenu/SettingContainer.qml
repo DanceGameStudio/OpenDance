@@ -6,10 +6,10 @@ Rectangle {
 
     property alias text: title.text
 
-    color: Qt.rgba(.2, .2, .2, .9)
+    color: color_bgTrans
     border {
         width: 3
-        color: Qt.rgba(.8, .8, .8, 1)
+        color: color_bg
     }
 
     Text {
