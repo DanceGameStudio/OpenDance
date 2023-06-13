@@ -8,15 +8,11 @@ Rectangle {
 	Image {
 		anchors {
 			horizontalCenter : root.horizontalCenter
-			verticalCenter : root.verticalCenter 
-			top: root.top
-			bottom: root.bottom
-			left: root.left
-			right: root.right
+			verticalCenter : root.verticalCenter
 		}
 		
-    fillMode: Image.PreserveAspectFit
-		source: "/img/logo_no_bg.png"
+		fillMode: Image.PreserveAspectFit
+		source: "logo_no_bg.png"
 	}
 
 	Label {

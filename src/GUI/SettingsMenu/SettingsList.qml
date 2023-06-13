@@ -23,6 +23,7 @@ Rectangle {
             //values: ["Easy","Normal","Hard"]
         }
 
+        /*
         ListElement {
             name: "Playback Speed"
             type: "slider"
@@ -31,11 +32,12 @@ Rectangle {
             value: 1.0
             max: 2.0
         }
+        */
 
         ListElement {
             name: "Name"
             type: "textentry"
-            value: "Ben"
+            defaultValue: "Username"
         }
     }
 
@@ -78,6 +80,8 @@ Rectangle {
             SettingTextentry {
                 text: name
                 visible: model.type == "textentry"
+
+                value: model.defaultValue
 
                 width: view.cellWidth - 50
                 height: view.cellHeight - 50

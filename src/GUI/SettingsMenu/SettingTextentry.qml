@@ -4,6 +4,8 @@ import QtQuick.Controls 1.4
 SettingContainer {
 	id: root
 	
+	property alias value: text.text
+
 	Rectangle {
 		anchors {
 			fill: parent

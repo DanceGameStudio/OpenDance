@@ -62,7 +62,7 @@ Window {
     
     PlayMenu {
         id: playMenu
-        visible: true
+        visible: false
 
         anchors.fill: parent
 
@@ -90,7 +90,7 @@ Window {
     }
 
     LandingScreen {
-        visible: false
+        visible: true
 
         id: landingScreen
         
