@@ -56,5 +56,10 @@ Rectangle {
 			
 			onClicked: root.openCreditsMenu()
 		}
-	}	
+	}
+
+	BackButton {
+		text: "Quit"
+		onClicked:  Qt.quit()
+	}
 }

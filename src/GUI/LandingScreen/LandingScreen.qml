@@ -5,7 +5,6 @@ Rectangle {
 	id: root
 	color: "transparent"
 	
-	/*
 	Image {
 		anchors {
 			horizontalCenter : root.horizontalCenter
@@ -19,7 +18,6 @@ Rectangle {
     fillMode: Image.PreserveAspectFit
 		source: "/img/logo_no_bg.png"
 	}
-	*/
 
 	Label {
 		text: "Open"
